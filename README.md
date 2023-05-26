@@ -56,9 +56,3 @@ En cuanto al diseño del proyecto tenemos lo siguiente:
 |Stack   |MongoDB - Express - ReactJS - NodeJS   |
 |Protocolo de comunicacion   |TCP/HTTPS   |
 |Enlaces de documentos del proyecto   | [Cronograma del proyecto](https://docs.google.com/spreadsheets/d/1BKXyozax2FK9un8BaEs8x-G-AeMQPxsv/edit?usp=share_link&ouid=104957760575365431430&rtpof=true&sd=true) - [SRS](https://docs.google.com/document/d/1absQVDszRBzFuyepEvJheYvylJfjTJh4u85k1jdooLQ/edit?usp=sharing) - [Glosario del proyecto](https://docs.google.com/document/d/1HfawSIEgyCsQQfVy2ezzB_COcuSDxEQZ/edit?usp=sharing&ouid=104957760575365431430&rtpof=true&sd=true)  |
-
-## Arquitectura del proyecto 
-
-Para este proyecto, estaremos utilizando una arquitectura en capas, donde cada capa está dedicada a una funcionalidad específica. Dicha arquitectura se divide de la siguiente manera:
-
-![image](/examples/diagramadearquitectura.png)
