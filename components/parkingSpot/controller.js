@@ -1,3 +1,5 @@
+const store = require('./store');
+
 function reserveParking(user, parkingSpot, time){
 return new Promise((resolve,reject) => {
   if (!user || !parkingSpot ||!time) {
@@ -9,12 +11,19 @@ return new Promise((resolve,reject) => {
            parkingSpot: parkingSpot,
            time: new Date(),
     };
+store.reserve(fullReserve); 
 console.log(fullReserve); 
 resolve(fullReserve);
 })
 }
+function getReserve(){
+    return new Promise((resolve,reject) => {
+        resolve(store.list());
+    })
+}
 module.exports = {
     reserveParking,
+    getReserve,
 }
 
 

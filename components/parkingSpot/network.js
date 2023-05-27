@@ -5,11 +5,12 @@ const controller = require('./controller.js');
 var message = "";
 
 router.get('/', function(req,res){
-    console.log(req.headers);
-    res.header({
-        "custom-header": message,
-    });
-    response.success(req,res,'Exudev');
+   controller.getReserve().then((reserveList) => {
+    response.success(req,res, reserveList, 200)
+   })
+   .catch(e =>{
+    response.error(req, res, 'Unexpected Error', e)
+   })
 })
 
 router.post('/',function(req,res){
