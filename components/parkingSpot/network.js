@@ -19,7 +19,8 @@ router.post('/',function(req,res){
         response.success(req,res, reserveParking, 201);
     })
     .catch(e => {
-        response.error(req,res,'Error inesperado', 500, 'Error en el controlador')
+        response.error(req,res,'Error inesperado', 500, 'Error en el controlador:')
+   
     });
 })
 module.exports = router;

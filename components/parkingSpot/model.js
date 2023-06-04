@@ -1,9 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const mySchema = new Schema({
-    user: user,
-    parkingSpot: parkingSpot,
-    time: new Date()
-})
+  user:{ type: String, require: true },
+  parkingSpot: { type: String, require: true },
+  time: Date,
+});
+
+const model = mongoose.model('ParkingSpot', mySchema);
+module.exports = model;
