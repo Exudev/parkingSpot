@@ -1,11 +1,5 @@
-const { config } = require('../../config/index');
 const Model = require('./model');
-const db = require('mongoose');
-require('dotenv').config();
-const MONGO_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${config.dbHost}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-db.Promise = global.Promise;
-db.connect(MONGO_URI);
-console.log('[db] Conectada con exito');
+
 
 
 function ReserveParkingSpot(fullReserve){
