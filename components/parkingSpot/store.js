@@ -1,7 +1,5 @@
 const Model = require('./model');
 
-
-
 function ReserveParkingSpot(fullReserve){
   //  list.push(fullReserve);
   const myReserve = new Model(fullReserve);

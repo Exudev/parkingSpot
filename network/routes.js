@@ -1,5 +1,5 @@
 const express = require('express');
-const user = require('../components/users/network');
+const user = require('../components/user/network');
 const parking_spot = require('../components/parkingSpot/network');
 //const router = express.Router();
 const routes = function (server){
