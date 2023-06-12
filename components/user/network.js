@@ -40,6 +40,6 @@ router.get("/", function(req, res) {
     .catch(e => {
         response.error(req,res, 'Error interno', 500, e);
     })
-})
+});
 
 module.exports = router;
