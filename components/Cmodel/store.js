@@ -1,6 +1,13 @@
 const Model = require ('./model')
+const ModelBrand = require('../Cbrand/model');
 
-function addModel(model){
+
+async function addModel(model){
+  const brandExists = await ModelBrand.findOne({ _id: model.brand }).exec();
+
+  if (!brandExists) {
+ 
+  }
     const newModel = new Model(model);
     return newModel.save();
 };

@@ -5,6 +5,12 @@ function addUser(user){
     return newUser.save();
 };
 
+// function login(username,password){
+//     const userFound = Model.findOne({
+//         email
+//     })
+// }
+
 async function seeAllUsers(){
     const users = await Model.find();
     return users;

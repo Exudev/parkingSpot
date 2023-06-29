@@ -3,7 +3,7 @@ function addNewUser(email, password, rol){
     return new Promise((resolve, reject)=> {
         if(!email||!password||!rol){
             console.error(
-                "[messageController] Theres no user or park or time selected"
+                "[messageController] Theres no user or password or role selected"
               );
               return reject("The provided data was incorrect");
         }
