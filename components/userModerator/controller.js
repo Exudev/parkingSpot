@@ -1,23 +1,24 @@
 const store = require("./store");
-function addNewParkingLot(name, totalParking, description){
+
+function addNewUserModerator(user, firstName, lastName){
     return new Promise((resolve, reject)=> {
-        if(!name||!totalParking||!description){
+        if(!user||!firstName||!lastName){
             console.error(
-                "[messageController] Some of the data is missing"
+                "[messageController] Theres missing data selected"
               );
               return reject("The provided data was incorrect");
         }
-        const parkingLot = {
-            name:  name,
-            totalParking: totalParking,
-            description:  description,
+        const userModerator = {
+            user: user,
+            firstName: firstName,
+            lastName: lastName,
         };
-        store.add(parkingLot);
-        console.log(parkingLot);
-        resolve(parkingLot);
+        store.add(userModerator);
+        console.log(userModerator);
+        resolve(userModerator);
     })
 }
-function deleteParkingLot(id){
+function deleteUserModerator(id){
     return new Promise((resolve, reject) => {
         if (!id) {
           reject("Id invalido");
@@ -34,14 +35,14 @@ function deleteParkingLot(id){
       });
 }
 
-function getParkingLot(){
+function getUserModeratorList(){
   return new Promise((resolve, reject) => {
     resolve(store.list());
   });
 } 
 
 module.exports = {
-    addNewParkingLot: addNewParkingLot,
-    deleteParkingLot: deleteParkingLot,
-    getParkingLot: getParkingLot,
+    addNewUserModerator: addNewUserModerator,
+    deleteUserModerator: deleteUserModerator,
+    getUserModeratorList: getUserModeratorList,
 }

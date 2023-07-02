@@ -1,0 +1,8 @@
+To Do list
+- Completar componentes faltantes
+- Hacer validaciones 
+- Hacer pantallas faltantes 
+- Añadir funcionalidad a las vistas
+- Seguridad en la contraseña
+- Manejo de roles
+- 

@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
-    name: string,
-    totalParking: number,
-    inUsedParking: number,
-    description: string,
+    name:  {type: String, require: true},
+    totalParking:  {type: Number, require: true},
+    description:  {type: String, require: true},
 });
 
 const model = mongoose.model('ParkingLot', mySchema);
-module.exports = model;
+module.exports = model; 
