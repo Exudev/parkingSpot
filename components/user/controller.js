@@ -46,9 +46,9 @@ function getUser(){
     resolve(store.list());
   });
 } 
-function changePassword(){
+// function changePassword(){
 
-}
+// }
 function login(email, password) {
   const warning = chalk.red;
   return new Promise((resolve, reject) => {
@@ -73,7 +73,6 @@ function login(email, password) {
       });
   });
 }
-
 
 module.exports = {
     addNewUser,
