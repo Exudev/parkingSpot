@@ -15,6 +15,17 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.post("/login", function(req, res) {
+    controller
+      .login(req.body.email, req.body.password)
+      .then((result) => {
+        response.success(req, res, result, 200);
+      })
+      .catch((error) => {
+        response.error(req, res, "Unexpected Error", 500, error);
+      });
+  });
+
   router.post("/", function(req, res) {
     controller
       .addNewUser(req.body.email, req.body.password, req.body.rol)

@@ -9,7 +9,6 @@ async function addVehicle(vehicle){
 async function getVehicle() {
     
     try {
-     
       const populated = await Model.find()
       .populate('model','model')
       .populate('color','color')
