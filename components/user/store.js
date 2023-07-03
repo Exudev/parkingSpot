@@ -1,8 +1,20 @@
 const Model = require ('./model')
 
-function addUser(user){
+async function addUser(user){
+    try {
+        const userFound = await Model.findOne({ email: user.email });
+        if(userFound)
+        {
+            return { success: false, message: 'User Already exists' };
+            
+        }
     const newUser = new Model(user);
     return newUser.save();
+    } catch (error) {
+        console.error('Error occurred during creating account:', error);
+      throw { success: false, message: 'An error occurred during Sign up' };
+    }
+    
 };
 
 async function login(username, password) {

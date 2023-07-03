@@ -14,9 +14,14 @@ function addNewUser(email, password, rol){
             password: password,
             rol: rol,
         };
-        store.add(user);
-        console.log(user);
-        resolve(user);
+        store.add(user)
+         .then((result) => {
+            console.log(result);
+            resolve(result);
+         })
+        .catch((error) => {
+          reject(error);
+        })
     })
 }
 function deleteUser(id){
