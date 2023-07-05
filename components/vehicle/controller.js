@@ -8,6 +8,7 @@ function addVehicle(name, model, color, owner, year, plate, description) {
       return reject("The provided data was incorrect");
     }
     // prueba
+    // prueba 2
     const vehicle = {
       name: name,
       model: model,
