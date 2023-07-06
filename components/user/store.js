@@ -1,22 +1,35 @@
-const Model = require ('./model')
+const Model = require ('./model');
+
 
 async function addUser(user){
+
     try {
-        const userFound = await Model.findOne({ email: user.email });
-        if(userFound)
-        {
-            return { success: false, message: 'User Already exists' };
-            
-        }
     const newUser = new Model(user);
-    return newUser.save();
+    
+    return newUser.save();;
     } catch (error) {
-        console.error('Error occurred during creating account:', error);
-      throw { success: false, message: 'An error occurred during Sign up' };
+      console.error('Error occurred during creating account:', error);
+      // eslint-disable-next-line no-throw-literal
+      return false;
+      // throw { success: false, message: 'An error occurred during Sign up' };
+      
     }
     
 };
 
+async function checkUserExists(email) {
+  try {
+    const userFound = await Model.findOne({ email: email });
+  if(!userFound)
+  {
+    return false;
+  }
+ return true;
+  } catch (error) {
+    console.error('Error occurred during creating account:', error);
+  }
+  
+}
 async function login(username, password) {
     try {
       const userFound = await Model.findOne({ email: username });
@@ -24,7 +37,7 @@ async function login(username, password) {
         // User not found
         return { success: false, message: 'Invalid username or password' };
       }
-      if (userFound.password != password) {
+      if (userFound.password !== password) {
         // Invalid password
         return { success: false, message: 'Invalid username or password' };
       }
@@ -53,4 +66,5 @@ module.exports = {
     add: addUser,
     delete: deleteUser,
     login: login,
+    exists: checkUserExists,
 }

@@ -2,7 +2,6 @@ const express = require("express");
 const response = require("../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
-var message = "";
 
 router.get("/", function(req, res) {
   const filterReservations = req.query.user || null;

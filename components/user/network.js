@@ -2,7 +2,8 @@ const express = require("express");
 const response = require("../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
-var message = "";
+const store = require("./store")
+
 
 router.get("/", function(req, res) {
     controller
@@ -27,21 +28,32 @@ router.get("/", function(req, res) {
   });
 
   router.post("/", function(req, res) {
-    controller
-      .addNewUser(req.body.email, req.body.password, req.body.rol)
-      .then((addNewUser) => {
-        response.success(req, res, addNewUser, 201);
-      })
-      .catch((e) => {
-        response.error(
-          req,
-          res,
-          "Error inesperado",
-          500,
-          "Error en el controlador:"
-        );
-      });
+    if (store.exists(req.body.email)) {
+      response.error(
+        req,
+        res,
+        "Este usuario ya existe",
+        500,
+        "Error en el controlador:"
+      );
+    } else {
+      controller
+        .addNewUser(req.body.email, req.body.password, req.body.rol)
+        .then((addNewUser) => {
+          response.success(req, res, addNewUser, 201);
+        })
+        .catch((e) => {
+          response.error(
+            req,
+            res,
+            "Error inesperado",
+            500,
+            "Error en el controlador:"
+          );
+        });
+    }
   });
+  
 
   router.delete('/:id', function(req,res){
     controller.deleteUser(req.params.id)

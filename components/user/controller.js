@@ -1,5 +1,5 @@
 const store = require("./store");
-const chalk = require('chalk')
+const chalk = require('chalk');
 function addNewUser(email, password, rol){
   const warning = chalk.red;
     return new Promise((resolve, reject)=> {
