@@ -2,7 +2,6 @@ const express = require("express");
 const response = require("../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
-const store = require("./store")
 
 
 router.get("/", function(req, res) {
@@ -28,15 +27,6 @@ router.get("/", function(req, res) {
   });
 
   router.post("/", function(req, res) {
-    if (store.exists(req.body.email)) {
-      response.error(
-        req,
-        res,
-        "Este usuario ya existe",
-        500,
-        "Error en el controlador:"
-      );
-    } else {
       controller
         .addNewUser(req.body.email, req.body.password, req.body.rol)
         .then((addNewUser) => {
@@ -46,12 +36,12 @@ router.get("/", function(req, res) {
           response.error(
             req,
             res,
-            "Error inesperado",
+            e,
             500,
             "Error en el controlador:"
           );
         });
-    }
+    
   });
   
 

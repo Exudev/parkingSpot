@@ -46,7 +46,7 @@ async function login(username, password) {
     } catch (error) {
       // Handle any errors
       console.error('Error occurred during login:', error);
-      throw { success: false, message: 'An error occurred during login' };
+      return { success: false, message: 'An error occurred during login' };
     }
   }
   

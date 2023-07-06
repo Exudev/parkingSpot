@@ -1,7 +1,8 @@
 const store = require("./store");
 const chalk = require('chalk');
+const warning = chalk.red;
+const validation = require("../../shared/validations");
 function addNewUser(email, password, rol){
-  const warning = chalk.red;
     return new Promise((resolve, reject)=> {
         if(!email||!password||!rol){
             console.log(warning(
@@ -9,6 +10,17 @@ function addNewUser(email, password, rol){
               ));
               return reject("The provided data was incorrect");
         }
+        if (!validation.validMail(email))
+        {
+          console.log(warning("[messageController] Invalid mail format"));
+          return reject("You need to provide a valid email");
+        }
+        if (store.exists(email))
+        {
+          console.log(warning("[messageController] Exists"));
+          return reject("Exists");
+        }
+
         const user = {
             email: email,
             password: password,
