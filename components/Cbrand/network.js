@@ -34,10 +34,10 @@ router.get("/", function(req, res) {
   router.delete('/:id', function(req,res){
     controller.deleteBrand(req.params.id)
     .then (()=> {
-        response.success(req,res,`Brand ${req.params.id} eliminada`,200)
+        response.success(req,res,`The  ${req.params.id} brand was eliminated`,200)
     })
     .catch(e => {
-        response.error(req,res, 'Error interno', 500, e);
+        response.error(req,res, 'Intern Error', 500, e);
     })
 });
 

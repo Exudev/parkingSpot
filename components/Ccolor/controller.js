@@ -18,7 +18,7 @@ function addNewColor(name){
 function deleteColor(id){
     return new Promise((resolve, reject) => {
         if (!id) {
-          reject("Id invalido");
+          reject("invalid-id");
           return false;
         }
         store

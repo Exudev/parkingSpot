@@ -18,7 +18,7 @@ function addNewBrand(name){
 function deleteBrand(id){
     return new Promise((resolve, reject) => {
         if (!id) {
-          reject("Id invalido");
+          reject("invalid-id");
           return false;
         }
         store
