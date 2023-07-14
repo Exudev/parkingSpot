@@ -14,9 +14,20 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.get("/byOrg", function(req, res) {
+    controller
+      .getParkingLotsByOrg(req.body.id)
+      .then((parkingSpotList) => {
+        response.success(req, res, parkingSpotList, 200);
+      })
+      .catch((e) => {
+        response.error(req, res, "Unexpected Error", 500, e);
+      });
+  });
+
   router.post("/", function(req, res) {
     controller
-      .addNewParkingLot(req.body.name, req.body.totalParking, req.body.description)
+      .addNewParkingLot(req.body.organization,req.body.coordenates,req.body.name, req.body.totalParking, req.body.description)
       .then((addNewParkingLot) => {
         response.success(req, res, addNewParkingLot, 201);
       })

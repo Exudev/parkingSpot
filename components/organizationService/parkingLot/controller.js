@@ -1,14 +1,16 @@
 const store = require("./store");
-function addNewParkingLot(name, totalParking, description){
+function addNewParkingLot(organization,name,coordenates, totalParking, description){
     return new Promise((resolve, reject)=> {
-        if(!name||!totalParking||!description){
+        if(!organization || !coordenates || !name||!totalParking||!description){
             console.error(
                 "[messageController] Some of the data is missing"
               );
               return reject("The provided data was incorrect");
         }
         const parkingLot = {
+            organization: organization,
             name:  name,
+            coordenates: coordenates,
             totalParking: totalParking,
             description:  description,
         };
@@ -17,6 +19,12 @@ function addNewParkingLot(name, totalParking, description){
         resolve(parkingLot);
     })
 }
+function getParkingsByOrganization(organizationId) {
+  return new Promise((resolve, reject) => {
+    resolve(store.getParkingsByOrg(organizationId));
+  });
+  };
+
 function deleteParkingLot(id){
     return new Promise((resolve, reject) => {
         if (!id) {
@@ -44,4 +52,5 @@ module.exports = {
     addNewParkingLot: addNewParkingLot,
     deleteParkingLot: deleteParkingLot,
     getParkingLot: getParkingLot,
+    getParkingLotsByOrg: getParkingsByOrganization
 }

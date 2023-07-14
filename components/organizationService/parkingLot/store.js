@@ -17,7 +17,17 @@ async function getParkingLots() {
       throw error;
     }
   }
-  
+
+  async function getParkingsByOrganization(id)
+  {
+    try {
+      const parkings = await Model.find({organization: id})
+      return parkings
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 
 function deleteParkingLot(id){
     return Model.deleteOne({
@@ -29,4 +39,5 @@ module.exports = {
     list: getParkingLots,
     add: addParkingLot,
     delete: deleteParkingLot,
+    getParkingsByOrg: getParkingsByOrganization
 }

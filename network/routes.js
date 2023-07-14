@@ -9,7 +9,7 @@ const user = require('../components/userService/user/network');
 const userDriver = require('../components/userService/userDriver/network');
 const userModerator = require('../components/userService/userModerator/network');
 const vehicle = require('../components/vehicleService/vehicle/network');
-
+const organization = require('../components/organizationService/organization/network');
 
 const routes = function(server) {
     server.use((req, res, next) => {
@@ -31,6 +31,7 @@ const routes = function(server) {
     server.use('/parking', parking);
     server.use('/parking-lot', parkingLot);
     server.use('/vehicle', vehicle);
+    server.use('/organization', organization)
   }
   
   module.exports = routes;
