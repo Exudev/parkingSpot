@@ -21,7 +21,7 @@ function validatePassword(password) {
     const charCode1 = password.charCodeAt(i);
     const charCode2 = password.charCodeAt(i + 1);
     const charCode3 = password.charCodeAt(i + 2);
-
+ 
     if (
       charCode2 - charCode1 === 1 &&  // Check for consecutive incrementing ASCII codes
       charCode3 - charCode2 === 1

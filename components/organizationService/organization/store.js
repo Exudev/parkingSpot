@@ -12,6 +12,10 @@ async function addOrganization(organization){
     
 };
 
+async function getNamesandCoordenates(){
+
+}
+
 async function getOrganization(organizationId){
 try {
   const OrganizationFound = await Model.find({ _id: new ObjectId(organizationId) }).exec();
@@ -51,4 +55,5 @@ module.exports = {
     get: getOrganization,
     delete: deleteOrganization,
     exists: checkOrganizationExists,
+    namesAndCoordenates: getNamesandCoordenates,
 }

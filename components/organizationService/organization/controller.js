@@ -45,6 +45,11 @@ function deleteOrganization(id){
           });
       });
 }
+function bringNamesandCoordenates(){
+return new Promise((resolve,reject) => {
+  resolve(store.namesAndCoordenates());
+})
+}
 
 function getOrganization(){
   return new Promise((resolve, reject) => {
