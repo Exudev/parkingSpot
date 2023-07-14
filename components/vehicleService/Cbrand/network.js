@@ -1,14 +1,13 @@
 const express = require("express");
-const response = require("../../network/response");
+const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 
-
 router.get("/", function(req, res) {
     controller
-      .getUserDriverList()
-      .then((userDriverList) => {
-        response.success(req, res, userDriverList, 200);
+      .getBrand()
+      .then((BrandList) => {
+        response.success(req, res, BrandList, 200);
       })
       .catch((e) => {
         response.error(req, res, "Unexpected Error", 500, e);
@@ -17,9 +16,9 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addNewUserDriver(req.body.user, req.body.firstName, req.body.lastName, req.body.birthDate)
-      .then((addNewUser) => {
-        response.success(req, res, addNewUser, 201);
+      .addNewBrand(req.body.name)
+      .then((addNewBrand) => {
+        response.success(req, res, addNewBrand, 201);
       })
       .catch((e) => {
         response.error(
@@ -27,18 +26,18 @@ router.get("/", function(req, res) {
           res,
           "Error inesperado",
           500,
-          "Error en el controlador:"
+          "Error en el controlador: " + e.message
         );
       });
   });
 
   router.delete('/:id', function(req,res){
-    controller.deleteUserDriver(req.params.id)
+    controller.deleteBrand(req.params.id)
     .then (()=> {
-        response.success(req,res,`Usuario ${req.params.id} eliminada`,200)
+        response.success(req,res,`The  ${req.params.id} brand was eliminated`,200)
     })
     .catch(e => {
-        response.error(req,res, 'Error interno', 500, e);
+        response.error(req,res, 'Intern Error', 500, e);
     })
 });
 

@@ -1,32 +1,35 @@
 const Model = require ('./model');
-
+const { ObjectId } = require('mongodb');
 
 async function addUser(user){
-
     try {
     const newUser = new Model(user);
-    
     return newUser.save();;
     } catch (error) {
       console.error('Error occurred during creating account:', error);
-      // eslint-disable-next-line no-throw-literal
       return false;
-      // throw { success: false, message: 'An error occurred during Sign up' };
-      
     }
     
 };
 
+async function getUser(userId){
+try {
+  const userFound = await Model.find({ _id: new ObjectId(userId) }).exec();
+  return userFound;
+} catch (error) {
+  console.error('Error occurred during searching account:', error);
+}
+}
 async function checkUserExists(email) {
   try {
     const userFound = await Model.findOne({ email: email });
-  if(!userFound)
+  if(userFound)
   {
-    return false;
+    return true;
   }
- return true;
+ return false;
   } catch (error) {
-    console.error('Error occurred during creating account:', error);
+    console.error('Error occurred during searching account:', error);
   }
   
 }
@@ -64,6 +67,7 @@ function deleteUser(id){
 module.exports = {
     list: seeAllUsers,
     add: addUser,
+    get: getUser,
     delete: deleteUser,
     login: login,
     exists: checkUserExists,

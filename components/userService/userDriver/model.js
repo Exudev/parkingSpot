@@ -13,5 +13,5 @@ const mySchema = new Schema({
 
 });
 
-const model = mongoose.model('userDriver', mySchema);
+const model = mongoose.model('UserDriver', mySchema);
 module.exports = model;

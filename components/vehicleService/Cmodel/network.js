@@ -1,13 +1,13 @@
 const express = require("express");
-const response = require("../../network/response");
+const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 
 router.get("/", function(req, res) {
     controller
-      .getVehicle()
-      .then((vehicleList) => {
-        response.success(req, res, vehicleList, 200);
+      .getModel()
+      .then((ModelList) => {
+        response.success(req, res, ModelList, 200);
       })
       .catch((e) => {
         response.error(req, res, "Unexpected Error", 500, e);
@@ -16,9 +16,9 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addVehicle(req.body.name,req.body.model, req.body.color, req.body.owner, req.body.year, req.body.plate, req.body.description)
-      .then((addVehicle) => {
-        response.success(req, res, addVehicle, 201);
+      .addNewModel(req.body.brand,req.body.name)
+      .then((addNewModel) => {
+        response.success(req, res, addNewModel, 201);
       })
       .catch((e) => {
         response.error(
@@ -32,9 +32,9 @@ router.get("/", function(req, res) {
   });
 
   router.delete('/:id', function(req,res){
-    controller.deleteParkingLot(req.params.id)
+    controller.deleteModel(req.params.id)
     .then (()=> {
-        response.success(req,res,`Vehicle${req.params.id} eliminada`,200)
+        response.success(req,res,`Model ${req.params.id} eliminada`,200)
     })
     .catch(e => {
         response.error(req,res, 'Error interno', 500, e);

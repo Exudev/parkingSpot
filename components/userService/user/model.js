@@ -8,7 +8,7 @@ const mySchema = new Schema({
     type: String,
     required: true,
   },
-  rol: { type: String },
+  active: { type: Boolean, require: true },
 });
 
 const model = mongoose.model('User', mySchema);

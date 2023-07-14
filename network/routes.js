@@ -1,14 +1,14 @@
 
-const brand = require('../components/Cbrand/network');
-const color = require('../components/Ccolor/network');
-const model = require('../components/Cmodel/network');
-const parking= require('../components/parking/network');
-const parkingLot = require('../components/parkingLot/network');
-const parking_spot = require('../components/parkingSpot/network');
-const user = require('../components/user/network');
-const userDriver = require('../components/userDriver/network');
-const userModerator = require('../components/userModerator/network');
-const vehicle = require('../components/vehicle/network');
+const brand = require('../components/vehicleService/Cbrand/network');
+const color = require('../components/vehicleService/Ccolor/network');
+const model = require('../components/vehicleService/Cmodel/network');
+const parking= require('../components/organizationService/parking/network');
+const parkingLot = require('../components/organizationService/parkingLot/network');
+const parking_spot = require('../components/organizationService/parkingSpot/network');
+const user = require('../components/userService/user/network');
+const userDriver = require('../components/userService/userDriver/network');
+const userModerator = require('../components/userService/userModerator/network');
+const vehicle = require('../components/vehicleService/vehicle/network');
 
 
 const routes = function(server) {

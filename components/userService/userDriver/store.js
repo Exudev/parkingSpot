@@ -1,6 +1,6 @@
 const Model = require ('./model')
 
-function addUserDriver(userDriver){
+async function addUserDriver(userDriver){
     const newUserDriver = new Model(userDriver);
     return newUserDriver.save();
 };

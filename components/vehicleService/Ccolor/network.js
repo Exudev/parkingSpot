@@ -1,13 +1,14 @@
 const express = require("express");
-const response = require("../../network/response");
+const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 
+
 router.get("/", function(req, res) {
     controller
-      .getModel()
-      .then((ModelList) => {
-        response.success(req, res, ModelList, 200);
+      .getColor()
+      .then((colorList) => {
+        response.success(req, res, colorList, 200);
       })
       .catch((e) => {
         response.error(req, res, "Unexpected Error", 500, e);
@@ -16,9 +17,9 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addNewModel(req.body.brand,req.body.name)
-      .then((addNewModel) => {
-        response.success(req, res, addNewModel, 201);
+      .addNewColor(req.body.name)
+      .then((addNewColor) => {
+        response.success(req, res, addNewColor, 201);
       })
       .catch((e) => {
         response.error(
@@ -32,9 +33,9 @@ router.get("/", function(req, res) {
   });
 
   router.delete('/:id', function(req,res){
-    controller.deleteModel(req.params.id)
+    controller.deleteColor(req.params.id)
     .then (()=> {
-        response.success(req,res,`Model ${req.params.id} eliminada`,200)
+        response.success(req,res,`Color ${req.params.id} eliminado`,200)
     })
     .catch(e => {
         response.error(req,res, 'Error interno', 500, e);

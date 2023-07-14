@@ -1,5 +1,5 @@
 const express = require("express");
-const response = require("../../network/response");
+const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 
@@ -28,7 +28,7 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
       controller
-        .addNewUser(req.body.email, req.body.password, req.body.rol)
+        .addNewUser(req.body.email, req.body.password)
         .then((addNewUser) => {
           response.success(req, res, addNewUser, 201);
         })

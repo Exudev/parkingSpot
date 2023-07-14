@@ -4,8 +4,8 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
+
 function isValidPhoneNumber(phoneNumber) {
-   
     const phoneRegex = /^\+\d{1,3}\d{3,14}$/;
     return phoneRegex.test(phoneNumber);
 }
