@@ -12,8 +12,13 @@ async function addOrganization(organization){
     
 };
 
-async function getNamesandCoordenates(){
-
+async function getNamesandCoordenates() {
+  try {
+    const organizations = await Model.find({}, "organizationName coodernates");
+    return organizations;
+  } catch (error) {
+    throw new Error("An error occurred while fetching organization names and coordinates: " + error);
+  }
 }
 
 async function getOrganization(organizationId){
@@ -24,9 +29,9 @@ try {
   console.error('Error occurred during searching organization:', error);
 }
 }
-async function checkOrganizationExists(email) {
+async function checkOrganizationExists(id) {
   try {
-    const OrganizationFound = await Model.findOne({ email: email });
+    const OrganizationFound = await Model.findOne({ email: id });
   if(OrganizationFound)
   {
     return true;

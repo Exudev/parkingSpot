@@ -19,7 +19,15 @@ async function getVehicle() {
         console.log(error);
       throw error;
     }
-  }
+}
+async function getVehiclesByUser(id){
+try {
+  const cars = await Model.find({owner: id})
+  return cars;
+} catch (error) {
+  console.error('Error occurred during searching organization:', error);
+}
+}
   
 
 function deleteVehicle(id){
@@ -32,4 +40,5 @@ module.exports = {
     list: getVehicle,
     add: addVehicle,
     delete: deleteVehicle,
+    listByUser: getVehiclesByUser,
 }

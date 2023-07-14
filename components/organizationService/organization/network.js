@@ -15,6 +15,17 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.get("/info", function(req, res) {
+    controller
+      .info()
+      .then((OrganizationList) => {
+        response.success(req, res, OrganizationList, 200);
+      })
+      .catch((e) => {
+        response.error(req, res, "Unexpected Error", 500, e);
+      });
+  });
+
 
   router.post("/", function(req, res) {
       controller

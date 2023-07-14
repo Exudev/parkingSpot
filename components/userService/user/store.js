@@ -9,7 +9,6 @@ async function addUser(user){
       console.error('Error occurred during creating account:', error);
       return false;
     }
-    
 };
 
 async function getUser(userId){

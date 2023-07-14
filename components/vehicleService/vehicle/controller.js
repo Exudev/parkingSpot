@@ -45,8 +45,14 @@ function getVehicle() {
   });
 }
 
+function getVehiclesByUser(id){
+  return new Promise((resolve, reject) => {
+    resolve(store.listByUser(id));
+  });
+}
 module.exports = {
   addVehicle: addVehicle,
   deleteVehicle: deleteVehicle,
   getVehicle: getVehicle,
+  getVehiclesByUser: getVehiclesByUser
 }

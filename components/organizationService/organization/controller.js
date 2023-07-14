@@ -28,7 +28,6 @@ function addNewOrganization(organizationName, coodernates, organizationOwner){
         })
     })
 }
-
 function deleteOrganization(id){
     return new Promise((resolve, reject) => {
         if (!id) {
@@ -50,7 +49,6 @@ return new Promise((resolve,reject) => {
   resolve(store.namesAndCoordenates());
 })
 }
-
 function getOrganization(){
   return new Promise((resolve, reject) => {
     resolve(store.list());
@@ -61,4 +59,5 @@ module.exports = {
     addNewOrganization: addNewOrganization,
     deleteOrganization: deleteOrganization,
     getOrganization: getOrganization,
+    info: bringNamesandCoordenates,
 }
