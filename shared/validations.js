@@ -10,21 +10,34 @@ function isValidPhoneNumber(phoneNumber) {
     return phoneRegex.test(phoneNumber);
 }
 
-function checkPasswordPatterns(password) {
-    const easyPatterns = [
-      /\d{4,}/,             // Matches four or more consecutive digits
-      /(.)\1{2,}/,          // Matches three or more consecutive repeated characters
-      /(1234|5678)/,        // Matches the sequence "1234" or "5678"
-      /(.)\1{1,}(.?)\2{1,}/ // Matches two or more consecutive repeated characters with any characters in between
-    ];
-  
-    for (const pattern of easyPatterns) {
-      if (pattern.test(password)) {
-        return false;
-      }
+function validatePassword(password) {
+  // Check if password is at least 6 characters long
+  if (password.length < 6) {
+    return false;
+  }
+
+  // Check for consecutive patterns
+  for (let i = 0; i < password.length - 2; i++) {
+    const charCode1 = password.charCodeAt(i);
+    const charCode2 = password.charCodeAt(i + 1);
+    const charCode3 = password.charCodeAt(i + 2);
+
+    if (
+      charCode2 - charCode1 === 1 &&  // Check for consecutive incrementing ASCII codes
+      charCode3 - charCode2 === 1
+    ) {
+      return false;
     }
-  
-    return true;
+
+    if (
+      charCode1 - charCode2 === 1 &&  // Check for consecutive decrementing ASCII codes
+      charCode2 - charCode3 === 1
+    ) {
+      return false;
+    }
+  }
+
+  return true;
 }
   
 function doesNotHaveNumber(string) {
@@ -35,7 +48,7 @@ function doesNotHaveNumber(string) {
 module.exports = {
 validMail:isValidEmail, 
 validPhone: isValidPhoneNumber,
-validPassword: checkPasswordPatterns,
+validPassword: validatePassword,
 validText: doesNotHaveNumber,
 }
 

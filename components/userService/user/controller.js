@@ -13,7 +13,8 @@ function addNewUser(email, password){
               ));
               return reject("The provided data was incorrect");
         }
-        if (!validation.validPassword(password))
+        let strongPassword = validation.validPassword(password);
+        if (strongPassword === false)
             {
               console.log(warning("[messageController] Invalid password"));
               return reject("You need to provide a better password");
@@ -23,11 +24,7 @@ function addNewUser(email, password){
           console.log(warning("[messageController] Invalid mail format"));
           return reject("You need to provide a valid email");
         }
-        try {
-          
-        } catch (error) {
-          
-        }
+        
         let exists;
         store.exists(email)
           .then((result) => {
