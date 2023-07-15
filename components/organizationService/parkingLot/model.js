@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
     organization: {type: String, require: true},
+    coordenates: {type: String, require: true},
     name:  {type: String, require: true},
     totalParking:  {type: Number, require: true},
     description:  {type: String, require: true},

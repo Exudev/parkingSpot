@@ -1,7 +1,6 @@
 const Model = require('./model')
 
 async function addParkingLot(parkingLot){
-
     const newParkingLot = new Model(parkingLot);
     return newParkingLot.save();
 };
@@ -9,7 +8,6 @@ async function addParkingLot(parkingLot){
 async function getParkingLots() {
     
     try {
-     
       const populated = await Model.find();
       return populated;
     } catch (error) {

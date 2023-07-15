@@ -11,7 +11,6 @@ const mySchema = new Schema({
     lastName: {type: String, require: true},
     birthDate: {type: Date, require: true},
     phone: {type: String, require: true},
-
 });
 
 const model = mongoose.model('UserDriver', mySchema);

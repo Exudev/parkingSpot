@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
 
 router.post("/", function(req, res) {
   controller
-    .reserveParking(req.body.user, req.body.parkingSpot, req.body.time)
+    .reserveParking(req.body.user, req.body.parking, req.body.StartTime)
     .then((reserveParking) => {
       response.success(req, res, reserveParking, 201);
     })

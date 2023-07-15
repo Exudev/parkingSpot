@@ -1,7 +1,6 @@
 const Model = require('./model');
 
 function ReserveParkingSpot(fullReserve){
-  //  list.push(fullReserve);
   const myReserve = new Model(fullReserve);
    myReserve.save();
 }
@@ -18,11 +17,12 @@ async function updateParking(id, parkingSpot, time){
 }
 async function seeAllReserved(filterUser){
     let filter = {};
-
     if(filterUser !== null){
         filter = {user: filterUser};
     }
-    const reserves = await Model.find(filter);
+    const reserves = await Model.find(filter)
+    .populate('parking','parking')
+    .populate('user','firstName')
     return reserves;
 }
 
@@ -37,4 +37,5 @@ module.exports = {
     list: seeAllReserved,
     modifyReserve: updateParking,
     remove: removeReservation,
+    
 }

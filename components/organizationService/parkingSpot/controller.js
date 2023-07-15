@@ -1,8 +1,8 @@
 const store = require("./store");
 
-function reserveParking(user, parkingSpot, time) {
+function reserveParking(user, parking, StartTime) {
   return new Promise((resolve, reject) => {
-    if (!user || !parkingSpot || !time) {
+    if (!user || !parking || !StartTime) {
       console.error(
         "[messageController] Theres no user or park or time selected"
       );
@@ -10,8 +10,8 @@ function reserveParking(user, parkingSpot, time) {
     }
     const fullReserve = {
       user: user,
-      parkingSpot: parkingSpot,
-      time: new Date(),
+      parking: parking,
+      time: StartTime,
     };
     store.reserve(fullReserve);
     console.log(fullReserve);

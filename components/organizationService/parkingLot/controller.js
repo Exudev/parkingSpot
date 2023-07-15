@@ -1,5 +1,5 @@
 const store = require("./store");
-function addNewParkingLot(organization,name,coordenates, totalParking, description){
+function addNewParkingLot(organization,coordenates,name, totalParking, description){
     return new Promise((resolve, reject)=> {
         if(!organization || !coordenates || !name||!totalParking||!description){
             console.error(
@@ -9,8 +9,8 @@ function addNewParkingLot(organization,name,coordenates, totalParking, descripti
         }
         const parkingLot = {
             organization: organization,
-            name:  name,
             coordenates: coordenates,
+            name:  name,
             totalParking: totalParking,
             description:  description,
         };
