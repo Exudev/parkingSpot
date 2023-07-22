@@ -20,7 +20,7 @@ async function addNewUserDriver(user, firstName, lastName, birthDate){
             lastName: lastName,
             birthDate: birthDate,
         }; 
-        const tokenLink = token.createTokenLink("No, se en verdad",token.createToken(user))
+        const tokenLink = token.createTokenLink("Hola profe",token.createToken(user))
         const newTemplate = nado(firstName,lastName,tokenLink);
         try {
           await store.add(userDriver);
