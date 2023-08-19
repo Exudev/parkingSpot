@@ -3,7 +3,7 @@ const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 
-
+//GET SECTION
 router.get("/", function(req, res) {
     controller
       .getUser()
@@ -15,6 +15,18 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.get("/", function(req, res) {
+    controller
+      .getInfoAndCars(req.body.email)
+      .then((userProfileInfo) => {
+        response.success(req, res, userProfileInfo, 200);
+      })
+      .catch((e) => {
+        response.error(req, res, "Unexpected Error", 500, e);
+      });
+  });
+
+  //POST SECTION
   router.post("/login", function(req, res) {
     controller
       .login(req.body.email, req.body.password)
@@ -44,7 +56,7 @@ router.get("/", function(req, res) {
     
   });
   
-
+  // DELETE SECTION
   router.delete('/:id', function(req,res){
     controller.deleteUser(req.params.id)
     .then (()=> {

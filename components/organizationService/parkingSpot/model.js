@@ -6,8 +6,8 @@ const mySchema = new Schema({
   ref: 'UserDriver', },
   parking: {type: Schema.ObjectId,
     ref: 'Parking',   },//Parqueo
-  startTime: Date,
-  endTime: Date,
+  StartTime: Date,
+  EndTime: Date,
 });
 
 const model = mongoose.model('ParkingSpot', mySchema);

@@ -15,5 +15,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 router(app);
 app.use("/app", express.static("./public"));
 
-app.listen(config.port);
-console.log("La aplicacion esta escuchando en el Localhost: " + config.dbPort);
+let retryAttempts = 0;
+const maxRetryAttempts = 5;
+
+function startServer() {
+   app.listen(config.port, () => {
+      console.log("La aplicacion esta escuchando en el Localhost: " + config.port);
+   }).on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+         if (retryAttempts < maxRetryAttempts) {
+            retryAttempts++;
+            console.log(`El puerto ${config.port} esta en uso. Reintentando en 5 segundo... (Intento ${retryAttempts} de ${maxRetryAttempts})`);
+            setTimeout(() => {
+               startServer();
+            }, 5000);
+         } else {
+            console.error(`El puerto ${config.port} sigue en uso después de ${maxRetryAttempts} intentos. Aplicación apagada.`);
+            process.exit(1); // Shut down the application
+         }
+      } else {
+         console.error("Error al iniciar el servidor:", err);
+      }
+   });
+}
+
+startServer();

@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
 
 router.post("/", function(req, res) {
   controller
-    .reserveParking(req.body.user, req.body.parking, req.body.StartTime)
+    .reserveParking(req.body.user, req.body.parking, req.body.StartTime, req.body.EndTime)
     .then((reserveParking) => {
       response.success(req, res, reserveParking, 201);
     })
@@ -27,7 +27,7 @@ router.post("/", function(req, res) {
         res,
         "Error inesperado",
         500,
-        "Error en el controlador:"
+        "Error en el controlador:" + e.message
       );
     });
 });

@@ -1,35 +1,41 @@
 const store = require("./store");
 
-function reserveParking(user, parking, StartTime) {
+function reserveParking(user, parking, StartTime, EndTime) {
   return new Promise((resolve, reject) => {
-    if (!user || !parking || !StartTime) {
+    if (!user || !parking || !StartTime|| !EndTime) {
       console.error(
         "[messageController] Theres no user or park or time selected"
       );
       return reject("The provided data was incorrect");
     }
+
     const fullReserve = {
       user: user,
       parking: parking,
-      time: StartTime,
+      StartTime:new Date(StartTime),
+      EndTime: new Date(EndTime),
     };
     store.reserve(fullReserve);
     console.log(fullReserve);
     resolve(fullReserve);
   });
 }
+function isValidISOString(dateString) {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(dateString);
+}
+
 function getReserve(filterUser) {
   return new Promise((resolve, reject) => {
     resolve(store.list(filterUser));
   });
 }
-function updateParkingSpot(id, parkingSpot, time) {
+function updateParkingSpot( user, parking, StartTime, EndTime) {
   return new Promise(async (resolve, reject) => {
-    if (!id || !parkingSpot || !time) {
+    if (!user||!parking || !StartTime || !EndTime) {
       reject("Invalid data");
       return false;
     }
-    const result = await store.modifyReserve(id, parkingSpot, time);
+    const result = await store.modifyReserve(user, parking, StartTime, EndTime);
     resolve(result);
   });
 }

@@ -50,6 +50,18 @@ function addNewUser(email, password){
           })
        
 }
+function getInfoAndCars(email){
+  return new Promise(async (resolve, reject)=> {
+      if(!email){
+          console.log(warning(
+              "[messageController] Theres no user selected"
+            ));
+            return reject("The provided data was incorrect");
+      }
+   
+    
+      })
+}
 function deleteUser(id){
     return new Promise((resolve, reject) => {
         if (!id) {
@@ -79,7 +91,10 @@ function getUser(userId){
   });
   
 } 
-// function changePassword(){
+function changePassword(email, oldPassword, newPassword){
+
+}
+// function forgotPassword(email){
 
 // }
 function login(email, password) {
@@ -109,7 +124,11 @@ function login(email, password) {
 
 module.exports = {
     addNewUser,
+    changePassword,
+    getInfoAndCars,
+    // forgotPassword,
     deleteUser,
-    getUser: getUsers,
+    getUser,
+    getUsers,
     login,
 }

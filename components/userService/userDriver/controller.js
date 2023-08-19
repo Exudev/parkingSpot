@@ -57,8 +57,17 @@ function getUserDriverList(){
   });
 } 
 
+function getUserDriverInfo(){
+
+}
+
+function getUserDriverCars(){
+  
+}
 module.exports = {
     addNewUserDriver: addNewUserDriver,
     deleteUserDriver: deleteUserDriver,
     getUserDriverList: getUserDriverList,
+    getUserDriverCars: getUserDriverCars,
+    getUserDriverInfo: getUserDriverInfo,
 }

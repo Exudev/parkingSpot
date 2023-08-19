@@ -19,6 +19,17 @@ try {
   console.error('Error occurred during searching account:', error);
 }
 }
+
+async function getUser(userId){
+  try {
+    const userInfoFound = await Model.find({ _id: new ObjectId(userId) }).exec();
+    const cars = await Model.find
+    return userFound;
+  } catch (error) {
+    console.error('Error occurred during searching account:', error);
+  }
+  }
+
 async function checkUserExists(email) {
   try {
     const userFound = await Model.findOne({ email: email });

@@ -3,6 +3,7 @@ const store = require("./store");
 const chalk = require('chalk');
 const warning = chalk.red;
 const validation = require("../../../shared/validations");
+const { resourceUsage } = require("process");
 // #endregion
 
 function addNewOrganization(organizationName, coodernates, organizationOwner){
@@ -27,6 +28,7 @@ function addNewOrganization(organizationName, coodernates, organizationOwner){
           reject(error);
         })
     })
+    
 }
 function deleteOrganization(id){
     return new Promise((resolve, reject) => {
