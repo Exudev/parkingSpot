@@ -15,6 +15,18 @@ router.get("/", function(req, res) {
     });
 });
 
+router.get("/next", function(req, res) {
+  const limit = req.query.limit || 1;
+  controller
+    .getLastReserve(req.body.user, limit)
+    .then((reservations) => {
+      response.success(req, res, reservations, 200);
+    })
+    .catch((e) => {
+      response.error(req, res, "Unexpected Error", 500, e);
+    });
+});
+
 router.post("/", function(req, res) {
   controller
     .reserveParking(req.body.user, req.body.parking, req.body.StartTime, req.body.EndTime)

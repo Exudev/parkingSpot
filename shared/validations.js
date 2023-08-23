@@ -10,6 +10,10 @@ function isValidPhoneNumber(phoneNumber) {
     return phoneRegex.test(phoneNumber);
 }
 
+function isValidISOString(dateString) {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(dateString);
+}
+
 function validatePassword(password) {
   // Check if password is at least 6 characters long
   if (password.length < 6) {
@@ -50,5 +54,6 @@ validMail:isValidEmail,
 validPhone: isValidPhoneNumber,
 validPassword: validatePassword,
 validText: doesNotHaveNumber,
+validDate: isValidISOString,
 }
 

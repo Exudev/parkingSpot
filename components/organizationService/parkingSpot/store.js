@@ -9,7 +9,6 @@ async function updateParking(id, parkingSpot, time){
     const foundParkingSpot = await Model.findOne({
         _id: id
     });
-   
         foundParkingSpot.parkingSpot = parkingSpot;
         foundParkingSpot.time = time;
         const newReserve = await foundParkingSpot.save();
@@ -26,6 +25,18 @@ async function seeAllReserved(filterUser){
     return reserves;
 }
 
+async function findClosestReservation(userId, limit) {
+    const now = new Date();
+    const closestReservation = await Model.findOne({ user: userId, StartTime: { $gte: now } })
+        .sort({ StartTime: 1 }) 
+        .limit(limit)
+        .populate('parking', 'parking')
+        .populate('user', 'firstName')
+        .exec();
+
+    return closestReservation;
+}
+
 function removeReservation(id){
    return Model.deleteOne({
         _id: id
@@ -37,5 +48,6 @@ module.exports = {
     list: seeAllReserved,
     modifyReserve: updateParking,
     remove: removeReservation,
+    nextReserve:findClosestReservation,
     
 }

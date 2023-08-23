@@ -20,13 +20,16 @@ function reserveParking(user, parking, StartTime, EndTime) {
     resolve(fullReserve);
   });
 }
-function isValidISOString(dateString) {
-  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(dateString);
-}
 
 function getReserve(filterUser) {
   return new Promise((resolve, reject) => {
     resolve(store.list(filterUser));
+  });
+}
+
+function getLastReserve(user, limit){
+  return new Promise((resolve, reject) => {
+    resolve(store.nextReserve(user,limit));
   });
 }
 function updateParkingSpot( user, parking, StartTime, EndTime) {
@@ -60,4 +63,5 @@ module.exports = {
   getReserve,
   updateParkingSpot,
   deleteReserve,
+  getLastReserve,
 };
