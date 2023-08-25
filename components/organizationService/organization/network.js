@@ -29,7 +29,7 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
       controller
-        .addNewOrganization(req.body.organizationName, req.body.coodernates, req.body.organizationOwner)
+        .addNewOrganization(req.body.organizationName, req.body.latitude, req.body.longitude, req.body.longitudeDelta,req.body.latitudeDelta, req.body.organizationOwner)
         .then((addOrganization) => {
           response.success(req, res, addOrganization, 201);
         })

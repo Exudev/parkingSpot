@@ -6,9 +6,9 @@ const validation = require("../../../shared/validations");
 const { resourceUsage } = require("process");
 // #endregion
 
-function addNewOrganization(organizationName, coodernates, organizationOwner){
+function addNewOrganization(organizationName, latitude,longitude ,longitudeDelta, latitudDelta,   organizationOwner){
     return new Promise(async (resolve, reject)=> {
-        if(!organizationName||!coodernates||!organizationOwner){
+        if(!organizationName||!longitudeDelta||!latitudDelta||!organizationOwner||!longitude||!latitude){
             console.log(warning(
                 "[messageController] Theres no user or password  selected"
               ));
@@ -16,7 +16,10 @@ function addNewOrganization(organizationName, coodernates, organizationOwner){
         }
          const organization = {
             organizationName: organizationName,
-            coodernates: coodernates,
+            latitude: latitude,
+            longitude: longitude,
+            latitudDelta : latitudDelta ,
+            longitudeDelta : longitudeDelta ,
             organizationOwner: organizationOwner,
         };
         store.add(organization)

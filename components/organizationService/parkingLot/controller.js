@@ -1,7 +1,7 @@
 const store = require("./store");
-function addNewParkingLot(organization,coordenates,name, totalParking, description){
+function addNewParkingLot(organization,latitude,longitude ,longitudeDelta, latitudDelta,name, totalParking, description){
     return new Promise((resolve, reject)=> {
-        if(!organization || !coordenates || !name||!totalParking||!description){
+        if(!organization||!longitudeDelta||!latitudDelta||!longitude||!latitude || !name||!totalParking||!description){
             console.error(
                 "[messageController] Some of the data is missing"
               );
@@ -9,7 +9,10 @@ function addNewParkingLot(organization,coordenates,name, totalParking, descripti
         }
         const parkingLot = {
             organization: organization,
-            coordenates: coordenates,
+            latitude: latitude,
+            longitude: longitude,
+            latitudDelta : latitudDelta ,
+            longitudeDelta : longitudeDelta ,
             name:  name,
             totalParking: totalParking,
             description:  description,

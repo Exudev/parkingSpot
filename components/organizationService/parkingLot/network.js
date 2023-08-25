@@ -27,7 +27,7 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addNewParkingLot(req.body.organization,req.body.coordenates,req.body.name, req.body.totalParking, req.body.description)
+      .addNewParkingLot(req.body.organization,req.body.latitude, req.body.longitude, req.body.longitudeDelta, req.body.latitudeDelta,req.body.name, req.body.totalParking, req.body.description)
       .then((addNewParkingLot) => {
         response.success(req, res, addNewParkingLot, 201);
       })
