@@ -1,5 +1,5 @@
 const Model = require ('./model')
-
+const { ObjectId } = require('mongodb');
 async function addParking(parking){
 
     const newParking = new Model(parking);
@@ -18,6 +18,18 @@ async function getParking() {
     }
   }
   
+  
+async function getParkingbyParkingLot(id) {
+    
+  try {
+    const objectId = new ObjectId(id)
+    const parkingLots = await Model.find({parkingLot: objectId})
+    return parkingLots
+  } catch (error) {
+      console.log(error);
+    throw error;
+  }
+}
 
 function deleteParking(id){
     return Model.deleteOne({
@@ -27,6 +39,7 @@ function deleteParking(id){
 
 module.exports = {
     list: getParking,
+    listByOrg: getParkingbyParkingLot,
     add: addParking,
     delete: deleteParking,
 }

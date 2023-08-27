@@ -32,13 +32,13 @@ function getLastReserve(user, limit){
     resolve(store.nextReserve(user,limit));
   });
 }
-function updateParkingSpot( user, parking, StartTime, EndTime) {
+function updateParkingSpot(id, parking, StartTime, EndTime) {
   return new Promise(async (resolve, reject) => {
-    if (!user||!parking || !StartTime || !EndTime) {
+    if (!parking || !StartTime || !EndTime) {
       reject("Invalid data");
       return false;
     }
-    const result = await store.modifyReserve(user, parking, StartTime, EndTime);
+    const result = await store.modifyReserve(id, parking, StartTime, EndTime);
     resolve(result);
   });
 }

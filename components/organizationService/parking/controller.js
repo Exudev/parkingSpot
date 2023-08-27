@@ -41,8 +41,15 @@ function getParking(){
   });
 } 
 
+function getParkingbyParkingLot(parkingLotId){
+  return new Promise((resolve, reject) => {
+    resolve(store.listByOrg(parkingLotId));
+  });
+} 
+
 module.exports = {
     addNewParking: addNewParking,
     deleteParking: deleteParking,
     getParking: getParking,
+    getParkingsOrg: getParkingbyParkingLot,
 }

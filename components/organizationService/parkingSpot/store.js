@@ -5,12 +5,13 @@ function ReserveParkingSpot(fullReserve){
    myReserve.save();
 }
 
-async function updateParking(id, parkingSpot, time){
+async function updateParking(id, parking, StartTime, EndTime){
     const foundParkingSpot = await Model.findOne({
         _id: id
     });
-        foundParkingSpot.parkingSpot = parkingSpot;
-        foundParkingSpot.time = time;
+        foundParkingSpot.parking = parking;
+        foundParkingSpot.StartTime = StartTime;
+        foundParkingSpot.EndTime = EndTime;
         const newReserve = await foundParkingSpot.save();
         return newReserve;
 }

@@ -14,6 +14,18 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.get("/:id", function(req, res) {
+    controller
+      .getParkingsOrg(req.params.id)
+      .then((parkingList) => {
+        response.success(req, res, parkingList, 200);
+      })
+      .catch((e) => {
+        response.error(req, res, "Unexpected Error: " + e, 500, e);
+      });
+  });
+
+
   router.post("/", function(req, res) {
     controller
       .addNewParking(req.body.parkingLot,req.body.parking, req.body.basePrice)
@@ -24,9 +36,9 @@ router.get("/", function(req, res) {
         response.error(
           req,
           res,
-          "Error inesperado",
+          "Unexpected Error: " + e,
           500,
-          "Error en el controlador: " + e.message
+          e
         );
       });
   });
@@ -37,7 +49,7 @@ router.get("/", function(req, res) {
         response.success(req,res,`Parking ${req.params.id} eliminada`,200)
     })
     .catch(e => {
-        response.error(req,res, 'Error interno', 500, e);
+        response.error(req,res,"Unexpected Error: " + e, 500, e);
     })
 });
 

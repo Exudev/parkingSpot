@@ -15,10 +15,9 @@ router.get("/", function(req, res) {
     });
 });
 
-router.get("/next", function(req, res) {
-  const limit = req.query.limit || 1;
+router.get("/next/:user", function(req, res) {
   controller
-    .getLastReserve(req.body.user, limit)
+    .getLastReserve(req.params.user)
     .then((reservations) => {
       response.success(req, res, reservations, 200);
     })
@@ -46,7 +45,7 @@ router.post("/", function(req, res) {
 router.patch("/:id", function(req, res) {
   console.log(req.params.id);
   controller
-    .updateParkingSpot(req.params.id, req.body.time, req.body.parkingSpot)
+    .updateParkingSpot(req.params.id, req.body.parking, req.body.StartTime, req.body.EndTime)
     .then((data) => {
       response.success(req, res, data, 200);
     })
