@@ -25,7 +25,7 @@ router.get("/", function(req, res) {
   });
   router.post("/", function(req, res) {
     controller
-      .addVehicle(req.body.name,req.body.model, req.body.color, req.body.owner, req.body.year, req.body.plate, req.body.description)
+      .addVehicle(req.body.model, req.body.color, req.body.owner, req.body.year, req.body.plate)
       .then((addVehicle) => {
         response.success(req, res, addVehicle, 201);
       })

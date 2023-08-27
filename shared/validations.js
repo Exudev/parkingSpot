@@ -5,6 +5,7 @@ function isValidEmail(email) {
 }
 
 
+
 function isValidPhoneNumber(phoneNumber) {
     const phoneRegex = /^\+\d{1,3}\d{3,14}$/;
     return phoneRegex.test(phoneNumber);
@@ -12,6 +13,10 @@ function isValidPhoneNumber(phoneNumber) {
 
 function isValidISOString(dateString) {
   return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(dateString);
+}
+
+function isValidObjectId(ObjectId){
+  return /^[0-9a-fA-F]{24}$/.test(ObjectId);
 }
 
 function validatePassword(password) {
@@ -55,5 +60,6 @@ validPhone: isValidPhoneNumber,
 validPassword: validatePassword,
 validText: doesNotHaveNumber,
 validDate: isValidISOString,
+validObjectId: isValidObjectId,
 }
 

@@ -2,15 +2,16 @@
 const store = require("./store");
 const chalk = require('chalk');
 const warning = chalk.red;
-const validation = require("../../../shared/validations");
-const { resourceUsage } = require("process");
+
+
 // #endregion
 
-function addNewOrganization(organizationName, latitude,longitude ,longitudeDelta, latitudDelta,   organizationOwner){
+//add organization 
+function addNewOrganization(organizationName, latitude,longitude ,longitudeDelta, latitudeDelta,  organizationOwner){
     return new Promise(async (resolve, reject)=> {
-        if(!organizationName||!longitudeDelta||!latitudDelta||!organizationOwner||!longitude||!latitude){
+        if(!organizationName||!longitudeDelta||!latitudeDelta||!organizationOwner||!longitude||!latitude){
             console.log(warning(
-                "[messageController] Theres no user or password  selected"
+                "[messageController] Theres missing information, that needs to be field"
               ));
               return reject("The provided data was incorrect");
         }
@@ -18,7 +19,7 @@ function addNewOrganization(organizationName, latitude,longitude ,longitudeDelta
             organizationName: organizationName,
             latitude: latitude,
             longitude: longitude,
-            latitudDelta : latitudDelta ,
+            latitudeDelta : latitudeDelta ,
             longitudeDelta : longitudeDelta ,
             organizationOwner: organizationOwner,
         };
@@ -33,10 +34,14 @@ function addNewOrganization(organizationName, latitude,longitude ,longitudeDelta
     })
     
 }
+//delete organization
 function deleteOrganization(id){
     return new Promise((resolve, reject) => {
         if (!id) {
-          reject("Id invalido");
+          console.log(warning(
+            "[messageController] The provided Id was invalid"
+          ));
+          reject("invalid Id");
           return false;
         }
         store
@@ -49,20 +54,42 @@ function deleteOrganization(id){
           });
       });
 }
+// this brings the name and coordenates of all the organization, if given Id, only brings one
 function bringNamesandCoordenates(){
 return new Promise((resolve,reject) => {
-  resolve(store.namesAndCoordenates());
+  resolve(store.getAllCoordenates());
 })
 }
-function getOrganization(){
+//This brings all the information about all the organization
+function getAllOrganization(){
   return new Promise((resolve, reject) => {
-    resolve(store.list());
+    const result = store.getAll();
+
+    if (result) {
+      resolve(result);
+    } else {
+      reject("Failed to retrieve organizations.");
+    }
   });
-} 
+}
+
+function getOrganization(id) {
+  return new Promise((resolve, reject) => {
+    store.getOne(id)
+      .then(organization => {
+        resolve(organization);
+      })
+      .catch(error => {
+        console.error("Error occurred while getting organization:", error);
+        reject(error);
+      });
+  });
+}
 
 module.exports = {
     addNewOrganization: addNewOrganization,
     deleteOrganization: deleteOrganization,
+    getAllOrganization: getAllOrganization,
     getOrganization: getOrganization,
     info: bringNamesandCoordenates,
 }

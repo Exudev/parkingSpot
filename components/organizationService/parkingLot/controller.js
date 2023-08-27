@@ -1,7 +1,7 @@
 const store = require("./store");
-function addNewParkingLot(organization,latitude,longitude ,longitudeDelta, latitudDelta,name, totalParking, description){
+function addNewParkingLot(organization,latitude,longitude ,longitudeDelta, latitudeDelta,name, totalParking, description){
     return new Promise((resolve, reject)=> {
-        if(!organization||!longitudeDelta||!latitudDelta||!longitude||!latitude || !name||!totalParking||!description){
+        if(!organization||!longitudeDelta||!latitudeDelta||!longitude||!latitude || !name||!totalParking||!description){
             console.error(
                 "[messageController] Some of the data is missing"
               );
@@ -11,7 +11,7 @@ function addNewParkingLot(organization,latitude,longitude ,longitudeDelta, latit
             organization: organization,
             latitude: latitude,
             longitude: longitude,
-            latitudDelta : latitudDelta ,
+            latitudeDelta : latitudeDelta ,
             longitudeDelta : longitudeDelta ,
             name:  name,
             totalParking: totalParking,
@@ -22,7 +22,7 @@ function addNewParkingLot(organization,latitude,longitude ,longitudeDelta, latit
         resolve(parkingLot);
     })
 }
-function getParkingsByOrganization(organizationId) {
+function getParkingLotsByOrganization(organizationId) {
   return new Promise((resolve, reject) => {
     resolve(store.getParkingsByOrg(organizationId));
   });
@@ -55,5 +55,5 @@ module.exports = {
     addNewParkingLot: addNewParkingLot,
     deleteParkingLot: deleteParkingLot,
     getParkingLot: getParkingLot,
-    getParkingLotsByOrg: getParkingsByOrganization
+    getParkingLotsByOrg: getParkingLotsByOrganization
 }

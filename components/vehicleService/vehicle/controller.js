@@ -1,7 +1,7 @@
 const store = require("./store");
-function addVehicle(name, model, color, owner, year, plate, description) {
+function addVehicle( model, color, owner, year, plate) {
   return new Promise((resolve, reject) => {
-    if (!name || !model || !color || !owner || !year || !plate || !description) {
+    if ( !model || !color || !owner || !year || !plate) {
       console.error(
         "[messageController] Theres missing Data"
       );
@@ -9,13 +9,11 @@ function addVehicle(name, model, color, owner, year, plate, description) {
     }
     // prueba
     const vehicle = {
-      name: name,
       model: model,
       color: color,
       owner: owner,
       year: year,
       plate: plate,
-      description: description
     };
     store.add(vehicle);
     console.log(vehicle);

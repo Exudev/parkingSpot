@@ -10,18 +10,18 @@ router.get("/", function(req, res) {
         response.success(req, res, parkingSpotList, 200);
       })
       .catch((e) => {
-        response.error(req, res, "Unexpected Error", 500, e);
+        response.error(req, res,  "Unexpected Error: " + e, 500, e);
       });
   });
 
-  router.get("/byOrg", function(req, res) {
+  router.get("/:id", function(req, res) {
     controller
-      .getParkingLotsByOrg(req.body.id)
-      .then((parkingSpotList) => {
-        response.success(req, res, parkingSpotList, 200);
+      .getParkingLotsByOrg(req.params.id)
+      .then((parkingLotsList) => {
+        response.success(req, res, parkingLotsList, 200);
       })
       .catch((e) => {
-        response.error(req, res, "Unexpected Error", 500, e);
+        response.error(req, res,  "Unexpected Error: " + e, 500, e);
       });
   });
 
@@ -35,9 +35,9 @@ router.get("/", function(req, res) {
         response.error(
           req,
           res,
-          "Error inesperado",
+          "Unexpected Error: " + e,
           500,
-          "Error en el controlador: " + e.message
+         e
         );
       });
   });
@@ -48,7 +48,7 @@ router.get("/", function(req, res) {
         response.success(req,res,`Parking Lot ${req.params.id} eliminada`,200)
     })
     .catch(e => {
-        response.error(req,res, 'Error interno', 500, e);
+        response.error(req,res,  "Unexpected Error: " + e, 500, e);
     })
 });
 
