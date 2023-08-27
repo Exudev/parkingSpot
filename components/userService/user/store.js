@@ -1,5 +1,7 @@
 const Model = require ('./model');
 const { ObjectId } = require('mongodb');
+const bcrypt = require('bcrypt');
+
 
 async function addUser(user){
     try {
@@ -20,15 +22,15 @@ try {
 }
 }
 
-async function getUser(userId){
-  try {
-    const userInfoFound = await Model.find({ _id: new ObjectId(userId) }).exec();
-    const cars = await Model.find
-    return userFound;
-  } catch (error) {
-    console.error('Error occurred during searching account:', error);
-  }
-  }
+// async function getUser(userId){
+//   try {
+//     const userInfoFound = await Model.find({ _id: new ObjectId(userId) }).exec();
+//     const cars = await Model.find
+//     return userFound;
+//   } catch (error) {
+//     console.error('Error occurred during searching account:', error);
+//   }
+//   }
 
 async function checkUserExists(email) {
   try {
@@ -43,6 +45,7 @@ async function checkUserExists(email) {
   }
   
 }
+
 async function login(username, password) {
     try {
       const userFound = await Model.findOne({ email: username });
@@ -50,11 +53,13 @@ async function login(username, password) {
         // User not found
         return { success: false, message: 'Invalid username or password' };
       }
-      if (userFound.password !== password) {
-        // Invalid password
+      
+      const passwordMatch = bcrypt.compareSync(password, userFound.password);
+      // Login successful
+      if(!passwordMatch)
+      {
         return { success: false, message: 'Invalid username or password' };
       }
-      // Login successful
       return { success: true, message: 'Login successful', user: userFound };
     } catch (error) {
       // Handle any errors

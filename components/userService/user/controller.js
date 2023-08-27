@@ -2,6 +2,7 @@
 const store = require("./store");
 const chalk = require('chalk');
 const warning = chalk.red;
+const bcrypt = require('bcrypt');
 const validation = require("../../../shared/validations");
 // #endregion
 
@@ -25,6 +26,8 @@ function addNewUser(email, password){
           return reject("You need to provide a valid email");
         }
         
+        const saltRounds = 10; // Number of salt rounds for bcrypt
+        const hashedPassword = bcrypt.hashSync(password, saltRounds);
         let exists;
         store.exists(email)
           .then((result) => {
@@ -35,7 +38,7 @@ function addNewUser(email, password){
          } const user = {
             type: 'user',
             email: email,
-            password: password,
+            password: hashedPassword,
             active: false ,
         };
         store.add(user)
@@ -50,14 +53,15 @@ function addNewUser(email, password){
           })
        
 }
-function getInfoAndCars(email){
+function getInfoAndCars(id){
   return new Promise(async (resolve, reject)=> {
-      if(!email){
+      if(!id){
           console.log(warning(
               "[messageController] Theres no user selected"
             ));
             return reject("The provided data was incorrect");
       }
+     
    
     
       })
@@ -85,9 +89,9 @@ function getUsers(){
   });
 } 
 
-function getUser(userId){
+function getUser(id){
   return new Promise((resolve, reject) => {
-    resolve(store.list());
+    resolve(store.get(id));
   });
   
 } 

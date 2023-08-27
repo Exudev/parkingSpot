@@ -6,7 +6,7 @@ const controller = require("./controller.js");
 //GET SECTION
 router.get("/", function(req, res) {
     controller
-      .getUser()
+      .getUsers()
       .then((userList) => {
         response.success(req, res, userList, 200);
       })
@@ -15,9 +15,20 @@ router.get("/", function(req, res) {
       });
   });
 
-  router.get("/", function(req, res) {
+  router.get("/:id", function(req, res) {
     controller
-      .getInfoAndCars(req.body.email)
+      .getUser(req.params.id)
+      .then((user) => {
+        response.success(req, res, user, 200);
+      })
+      .catch((e) => {
+        response.error(req, res, "Unexpected Error", 500, e);
+      });
+  });
+
+router.get("/userInfo/:id", function(req, res) {
+    controller
+      .getInfoAndCars(req.params.id)
       .then((userProfileInfo) => {
         response.success(req, res, userProfileInfo, 200);
       })
