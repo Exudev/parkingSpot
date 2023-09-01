@@ -13,14 +13,14 @@ router.get("/", function(req, res) {
         response.error(req, res, "Unexpected Error", 500, e);
       });
   });
-  router.get("/byUser", function(req, res) {
+  router.get("/byUser/:id", function(req, res) {
     controller
-      .getVehiclesByUser(req.body.id)
+      .getVehiclesByUser(req.params.id)
       .then((vehicleList) => {
         response.success(req, res, vehicleList, 200);
       })
       .catch((e) => {
-        response.error(req, res, "Unexpected Error", 500, e);
+        response.error(req, res, "Unexpected Error", 500,  e);
       });
   });
   router.post("/", function(req, res) {

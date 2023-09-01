@@ -1,4 +1,6 @@
 const Model = require ('./model');
+const ModelUserDriver = require ('../userDriver/model')
+const ModelVehicle = require ('../../vehicleService/vehicle/model')
 const { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 
@@ -6,7 +8,7 @@ const bcrypt = require('bcrypt');
 async function addUser(user){
     try {
     const newUser = new Model(user);
-    return newUser.save();;
+    return newUser.save();
     } catch (error) {
       console.error('Error occurred during creating account:', error);
       return false;
@@ -21,6 +23,22 @@ try {
   console.error('Error occurred during searching account:', error);
 }
 }
+
+async function getUserInfo(userId)
+{
+  try {
+    const userDriverFound = await ModelUserDriver.find({user: userId}).exec();
+    const userDriverId = userDriverFound.user;
+    const carFound = await  ModelVehicle.find({owner: userDriverId}).exec();
+    const res = {
+      userDriverFound,
+      carFound
+    }
+    return res
+  } catch (error) {
+    console.error('Error occurred during searching account:', error);
+}
+  }
 
 // async function getUser(userId){
 //   try {
@@ -80,6 +98,7 @@ function deleteUser(id){
 }
 
 module.exports = {
+    info:getUserInfo,
     list: seeAllUsers,
     add: addUser,
     get: getUser,

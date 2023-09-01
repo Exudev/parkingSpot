@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
 
   router.post("/", async function(req, res) {
     controller
-      .addNewUserDriver(req.body.user, req.body.firstName, req.body.lastName, req.body.birthDate)
+      .addNewUserDriver(req.body.user, req.body.firstName, req.body.lastName, req.body.birthDate,  req.body.phone)
       .then((addNewUser) => {
         response.success(req, res, addNewUser, 201);
       })

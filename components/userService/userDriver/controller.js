@@ -6,7 +6,7 @@ const emailSender = require('../../../mail/emailSender');
 const token = require('../../tokenService/token');
 const userStore = require('../user/store.js')
 // #endregion
-async function addNewUserDriver(user, firstName, lastName, birthDate){
+async function addNewUserDriver(user, firstName, lastName, birthDate, phone){
     return new Promise(async (resolve, reject)=> {
         if(!user||!firstName||!lastName||!birthDate){
             console.error(
@@ -19,6 +19,7 @@ async function addNewUserDriver(user, firstName, lastName, birthDate){
             firstName: firstName,
             lastName: lastName,
             birthDate: birthDate,
+            phone: phone,
         }; 
         const tokenLink = token.createTokenLink("Hola profe",token.createToken(user))
         const newTemplate = nado(firstName,lastName,tokenLink);

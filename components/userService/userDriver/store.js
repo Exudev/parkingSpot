@@ -10,10 +10,9 @@ async function seeAllUsersDriver(){
         const usersDrivers = await Model.find().populate('user','email');
     return usersDrivers;
     } catch (error) {
-        
     }
-    
 }
+
 
 function deleteUserDriver(id){
     return Model.deleteOne({
