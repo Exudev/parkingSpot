@@ -21,6 +21,12 @@ function reserveParking(user, parking, StartTime, EndTime) {
   });
 }
 
+function getReservesByParkingLotDay(parkingLotId) {
+  return new Promise((resolve, reject) => {
+    resolve(store.reservesOfDayByParkingLot(parkingLotId));
+  });
+}
+
 function getReserve(filterUser) {
   return new Promise((resolve, reject) => {
     resolve(store.list(filterUser));
@@ -30,6 +36,17 @@ function getReserve(filterUser) {
 function getLastReserve(user, limit){
   return new Promise((resolve, reject) => {
     resolve(store.nextReserve(user,limit));
+  });
+}
+
+function getDayReservationsOfUsers(userId){
+  return new Promise((resolve, reject) => {
+    resolve(store.parkingSpotsDailyUser(userId));
+  });
+}
+function getHistoryUser(user, limit){
+  return new Promise((resolve, reject) => {
+    resolve(store.historyByUser(user,limit));
   });
 }
 function updateParkingSpot(id, parking, StartTime, EndTime) {
@@ -61,7 +78,10 @@ function deleteReserve(id) {
 module.exports = {
   reserveParking,
   getReserve,
+  getHistoryUser,
+  getDayReservationsOfUsers,
   updateParkingSpot,
   deleteReserve,
   getLastReserve,
+  getReservesByParkingLotDay,
 };
