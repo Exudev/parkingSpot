@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Model = require ('./model');
 const ModelUserDriver = require ('../userDriver/model')
 const ModelVehicle = require ('../../vehicleService/vehicle/model')
@@ -28,13 +29,10 @@ async function getUserInfo(userId)
 {
   try {
     const userDriverFound = await ModelUserDriver.find({user: userId}).exec();
-    const userDriverId = userDriverFound.user;
-    const carFound = await  ModelVehicle.find({owner: userDriverId}).exec();
-    const res = {
-      userDriverFound,
-      carFound
-    }
-    return res
+   // const userDriverId = userDriverFound._id;
+   // const carFound = await  ModelVehicle.find({owner: userDriverId}).exec();
+
+    return userDriverFound
   } catch (error) {
     console.error('Error occurred during searching account:', error);
 }

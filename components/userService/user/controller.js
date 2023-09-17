@@ -61,10 +61,7 @@ function getInfoAndCars(id){
             ));
             return reject("The provided data was incorrect");
       }
-
-      
         resolve(store.info(id));
-      
     });
     }
 
