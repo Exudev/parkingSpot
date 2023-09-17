@@ -9,7 +9,6 @@ const mySchema = new Schema({
     },  
     firstName: {type: String, require: true},
     lastName: {type: String, require: true},
-    birthDate: {type: Date, require: true},
     phone: {type: String, require: true},
 });
 

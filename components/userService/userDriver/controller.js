@@ -1,14 +1,13 @@
 // #region Imports
 const store = require("./store");
-const _validation = require("../../../shared/validations");
 const nado = require('../../../mail/emailTemplates/activateAccountTemplate');
 const emailSender = require('../../../mail/emailSender');
 const token = require('../../tokenService/token');
 const userStore = require('../user/store.js')
 // #endregion
-async function addNewUserDriver(user, firstName, lastName, birthDate, phone){
+async function addNewUserDriver(user, firstName, lastName, phone){
     return new Promise(async (resolve, reject)=> {
-        if(!user||!firstName||!lastName||!birthDate){
+        if(!user||!firstName||!lastName||!phone){
             console.error(
                 "[messageController] Theres missing data selected"
               );
@@ -18,7 +17,6 @@ async function addNewUserDriver(user, firstName, lastName, birthDate, phone){
           user: user,
             firstName: firstName,
             lastName: lastName,
-            birthDate: birthDate,
             phone: phone,
         }; 
         const tokenLink = token.createTokenLink("Hola profe",token.createToken(user))
