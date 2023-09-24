@@ -1,4 +1,5 @@
 const Model = require ('./model')
+const ModelBrand = require('../Cbrand/model')
 
 async function addVehicle(vehicle){
 
@@ -20,15 +21,24 @@ async function getVehicle() {
       throw error;
     }
 }
-async function getVehiclesByUser(id){
-try {
-  const cars = await Model.find({owner: id})
-  return cars;
-} catch (error) {
-  console.error('Error occurred during searching organization:', error);
+async function getVehiclesByUser(id) {
+  try {
+    const cars = await Model.find({ owner: id })
+      .populate({
+        path: 'model',
+        select: 'model brand', // Select the 'model' and 'brand' fields from the 'model' document
+        populate: {
+          path: 'brand',
+          select: 'brand' // Select the 'name' field from the 'brand' document
+        }
+      })
+      .populate('color', 'color');
+    return cars;
+  } catch (error) {
+    console.error('Error occurred during searching organization:', error);
+  }
 }
-}
-  
+
 
 function deleteVehicle(id){
     return Model.deleteOne({

@@ -53,6 +53,18 @@ function addNewUser(email, password){
           })
        
 }
+
+function activateUser(token, userId){
+  return new Promise(async (resolve, reject)=> {
+    if(!token){
+        console.log(warning(
+            "[messageController] There where no token sended"
+          ));
+          return reject("The provided  was incorrect");
+    }
+      resolve(store.activate(token, userId));
+  });
+}
 function getInfoAndCars(id){
   return new Promise(async (resolve, reject)=> {
       if(!id){
@@ -63,7 +75,7 @@ function getInfoAndCars(id){
       }
         resolve(store.info(id));
     });
-    }
+}
 
 function deleteUser(id){
     return new Promise((resolve, reject) => {
@@ -134,4 +146,5 @@ module.exports = {
     getUser,
     getUsers,
     login,
+    activateUser,
 }

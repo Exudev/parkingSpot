@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Model = require ('./model');
+const ModelToken = require('../../tokenService/model');
 const ModelUserDriver = require ('../userDriver/model')
 const ModelVehicle = require ('../../vehicleService/vehicle/model')
 const { ObjectId } = require('mongodb');
@@ -15,6 +16,47 @@ async function addUser(user){
       return false;
     }
 };
+//Set 
+
+async function activateUser(token, userId) {
+  try {
+    
+    const existingToken = await ModelToken.findOne({
+      type: 'activate-account',
+      token: token,
+      user: userId,
+    });
+
+    if (!existingToken) {
+      console.error('Activation token not found.');
+      return false; // Token not found, indicating failure
+    }
+
+    const updatedUser = await Model.findByIdAndUpdate(
+      { _id: new ObjectId(userId) },
+      { active: true },
+      { new: true } // This option returns the updated user
+    );
+
+    if (!updatedUser) {
+      console.error('User not found.');
+      return false; // Handle the case where the user is not found
+    }
+
+    // The user's `active` property has been updated to true.
+    console.log('User activated:', updatedUser);
+    await ModelToken.findOneAndDelete({
+      type: 'activate-account',
+      token: token,
+      user: userId,
+    });
+    return true; // Indicate success
+  } catch (error) {
+    console.error('Error occurred during activating user:', error);
+    return false; // Indicate failure
+  }
+}
+
 
 async function getUser(userId){
 try {
@@ -36,18 +78,7 @@ async function getUserInfo(userId)
   } catch (error) {
     console.error('Error occurred during searching account:', error);
 }
-  }
-
-// async function getUser(userId){
-//   try {
-//     const userInfoFound = await Model.find({ _id: new ObjectId(userId) }).exec();
-//     const cars = await Model.find
-//     return userFound;
-//   } catch (error) {
-//     console.error('Error occurred during searching account:', error);
-//   }
-//   }
-
+}
 async function checkUserExists(email) {
   try {
     const userFound = await Model.findOne({ email: email });
@@ -103,4 +134,5 @@ module.exports = {
     delete: deleteUser,
     login: login,
     exists: checkUserExists,
+    activate: activateUser,
 }

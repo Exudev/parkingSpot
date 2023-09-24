@@ -1,11 +1,32 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const Model = require ('./model');
 
-function generateToken(userId) {
-    const secretKey = crypto.randomBytes(32).toString('hex');
-    const token = jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
-    return token;
+function generateActivateAccountToken(userId) {
+        try{ 
+            var val = Math.floor(1000 + Math.random() * 9000);
+            const currentDate = new Date();
+            const expirationDate = new Date(currentDate);
+            expirationDate.setDate(expirationDate.getDate() + 1);
+            
+            const newToken = new Model({
+               type: 'activate-account',
+               token: val,
+               user:  userId,
+               DateGenerate:currentDate,
+               ExpirationDate: expirationDate,
+            });
+            newToken.save();
+            return val;
+
+        }catch(error){
+            console.error('Error occurred during creating token:', error);
+            return false;
+        }
+
 }
+
+
 function generateTokenLink(link, token) {
     const tokenLink = link + "/" + token;
     return tokenLink;
@@ -14,7 +35,6 @@ function generateTokenLink(link, token) {
 
 
 module.exports ={
-    createToken :generateToken,
+    createActivateAccountToken :generateActivateAccountToken,
     createTokenLink: generateTokenLink,
-
 }

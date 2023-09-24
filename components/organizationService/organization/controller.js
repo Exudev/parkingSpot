@@ -73,6 +73,18 @@ function getAllOrganization(){
   });
 }
 
+function activateUser(idUser, token){
+  return new Promise((resolve, reject) => {
+    const result = store.getAll();
+
+    if (result) {
+      resolve(result);
+    } else {
+      reject("Failed to retrieve organizations.");
+    }
+  });
+}
+
 function getOrganization(id) {
   return new Promise((resolve, reject) => {
     store.getOne(id)

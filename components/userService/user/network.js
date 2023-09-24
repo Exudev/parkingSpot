@@ -78,6 +78,23 @@ router.get("/", function(req, res) {
     
   });
   
+  router.put("/activate", function(req, res) {
+    controller
+      .activateUser(req.body.token, req.body.userId)
+      .then((activateUser) => {
+        response.success(req, res, activateUser, 201);
+      })
+      .catch((e) => {
+        response.error(
+          req,
+          res,
+          e,
+          500,
+          "Error en el controlador:"
+        );
+      });
+  
+});
   // DELETE SECTION
   router.delete('/:id', function(req,res){
     controller.deleteUser(req.params.id)

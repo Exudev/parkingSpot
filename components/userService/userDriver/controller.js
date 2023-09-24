@@ -3,7 +3,8 @@ const store = require("./store");
 const nado = require('../../../mail/emailTemplates/activateAccountTemplate');
 const emailSender = require('../../../mail/emailSender');
 const token = require('../../tokenService/token');
-const userStore = require('../user/store.js')
+const userStore = require('../user/store.js');
+
 // #endregion
 async function addNewUserDriver(user, firstName, lastName, phone){
     return new Promise(async (resolve, reject)=> {
@@ -19,14 +20,14 @@ async function addNewUserDriver(user, firstName, lastName, phone){
             lastName: lastName,
             phone: phone,
         }; 
-        const tokenLink = token.createTokenLink("Hola profe",token.createToken(user))
-        const newTemplate = nado(firstName,lastName,tokenLink);
+        const secretValue = await token.createActivateAccountToken(user);
+        const newTemplate = nado(firstName,lastName,secretValue);
         try {
-          await store.add(userDriver);
+        await store.add(userDriver);
         const userFound = await userStore.get(user); 
         console.log(userFound[0].email);
         emailSender.sendEmail(userFound[0].email,"Welcome to Parking-Spot",newTemplate);
-       console.log(userDriver);
+        console.log(userDriver);
         resolve(userFound);
         } catch (error) {
           reject(error);
