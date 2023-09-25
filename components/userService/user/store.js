@@ -31,6 +31,11 @@ async function activateUser(token, userId) {
       console.error('Activation token not found.');
       return false; // Token not found, indicating failure
     }
+   const currentDate = new Date();
+    if (existingToken.expirationDate < currentDate){
+      console.error('Activation token has expired.');
+      return false; // Token not found, indicating failure
+    }
 
     const updatedUser = await Model.findByIdAndUpdate(
       { _id: new ObjectId(userId) },
@@ -57,7 +62,49 @@ async function activateUser(token, userId) {
   }
 }
 
+async function setNewPasswordWithToken(token, email, password)
+{
+  try{
+  const existingToken = await ModelToken.findOne({
+    type: 'forgot-password',
+    user: email,
+    token: token,
+  });
 
+  if (!existingToken) {
+    console.error('Activation token not found.');
+    return false; // Token not found, indicating failure
+  }
+ const currentDate = new Date();
+  if (existingToken.expirationDate < currentDate){
+    console.error('Activation token has expired.');
+    return false; // Token not found, indicating failure
+  }
+  const saltRounds = 10; // Number of salt rounds for bcrypt
+  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+
+  const updatedUser = await Model.findOneAndUpdate(
+    { email: email},
+    { password: hashedPassword },
+    { new: true } // This option returns the updated user
+  );
+  if (!updatedUser) {
+    console.error('User not found.');
+    return false; // Handle the case where the user is not found
+  }
+  await ModelToken.findOneAndDelete({
+    type: 'forgot-password',
+    token: token,
+    user: email,
+  });
+  return true; // Indicate success
+}
+ catch (error) {
+  console.error('Error occurred during activating user:', error);
+  return false; // Indicate failure
+}
+
+}
 async function getUser(userId){
 try {
   const userFound = await Model.find({ _id: new ObjectId(userId) }).exec();
@@ -135,4 +182,5 @@ module.exports = {
     login: login,
     exists: checkUserExists,
     activate: activateUser,
+    changePasswordToken: setNewPasswordWithToken,
 }

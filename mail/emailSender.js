@@ -1,5 +1,5 @@
 const { config } = require("../config/index");
-const generateActivateAccountEmailTemplate = require('./emailTemplates/activateAccountTemplate')
+
 require("dotenv").config();
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(
@@ -33,7 +33,7 @@ const options = {
 
     transporter.sendMail(options, function (err, info){
     if(err){
-        console.log("Se cago: " + err.message);
+        console.log("Se jodio en : " + err.message);
         return;
     }
     console.log("Sent: " + info.response);

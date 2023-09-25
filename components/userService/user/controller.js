@@ -3,6 +3,10 @@ const store = require("./store");
 const chalk = require('chalk');
 const warning = chalk.red;
 const bcrypt = require('bcrypt');
+const nado = require('../../../mail/emailTemplates/forgotPassword');
+const emailSender = require('../../../mail/emailSender');
+const token = require('../../tokenService/token');
+
 const validation = require("../../../shared/validations");
 // #endregion
 
@@ -65,6 +69,7 @@ function activateUser(token, userId){
       resolve(store.activate(token, userId));
   });
 }
+
 function getInfoAndCars(id){
   return new Promise(async (resolve, reject)=> {
       if(!id){
@@ -106,12 +111,36 @@ function getUser(id){
   });
   
 } 
-function changePassword(email, oldPassword, newPassword){
-
+async function forgotPassword(email ){
+  return new Promise(async (resolve, reject) => {
+    const secretValue = await token.createForgotPasswordToken(email);
+    const newTemplate = nado(secretValue);
+    resolve(emailSender.sendEmail(email,"oh my, oh my, u forgot ur password",newTemplate));
+  });
 }
-// function forgotPassword(email){
 
-// }
+async function setNewPassword(token, email, password, confirmPassword){
+  
+  return new Promise(async (resolve, reject) => {
+    if(password !== confirmPassword){
+    console.error(
+      "[messageController] The password didnt match"
+    );
+    return reject("The password didnt match");
+  }
+
+  let strongPassword = validation.validPassword(password);
+        if (strongPassword === false)
+            {
+              console.log(warning("[messageController] Invalid password"));
+              return reject("You need to provide a better password");
+            }
+        
+        
+    resolve(store.changePasswordToken(token, email, password));
+  });
+}
+
 function login(email, password) {
   const warning = chalk.red;
   return new Promise((resolve, reject) => {
@@ -139,9 +168,9 @@ function login(email, password) {
 
 module.exports = {
     addNewUser,
-    changePassword,
     getInfoAndCars,
-    // forgotPassword,
+    forgotPassword,
+    setNewPassword,
     deleteUser,
     getUser,
     getUsers,

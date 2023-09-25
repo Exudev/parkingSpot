@@ -26,18 +26,8 @@ router.get("/", function(req, res) {
       });
   });
 
-// router.get("/userInfo/:id", function(req, res) {
-//     controller
-//       .getInfoAndCars(req.params.id)
-//       .then((userProfileInfo) => {
-//         response.success(req, res, userProfileInfo, 200);
-//       })
-//       .catch((e) => {
-//         response.error(req, res, "Unexpected Error", 500, e);
-//       });
-//   });
 
-  router.get("/Info/:id", function(req, res) {
+  router.get("/info/:id", function(req, res) {
     controller
       .getInfoAndCars(req.params.id)
       .then((userProfileInfo) => {
@@ -95,6 +85,43 @@ router.get("/", function(req, res) {
       });
   
 });
+
+router.put("/forgot-password", function(req, res) {
+  controller
+    .forgotPassword(req.body.email)
+    .then((forgotPassword) => {
+      response.success(req, res, forgotPassword, 201);
+    })
+    .catch((e) => {
+      response.error(
+        req,
+        res,
+        e,
+        500,
+        "Error en el controlador:"
+      );
+    });
+
+});
+
+router.put("/set-new-password", function(req, res) {
+  controller
+    .setNewPassword(req.body.token, req.body.email, req.body.password, req.body.confirmPassword)
+    .then((changedPassword) => {
+      response.success(req, res, changedPassword, 201);
+    })
+    .catch((e) => {
+      response.error(
+        req,
+        res,
+        e,
+        500,
+        "Error en el controlador:"
+      );
+    });
+
+});
+
   // DELETE SECTION
   router.delete('/:id', function(req,res){
     controller.deleteUser(req.params.id)
