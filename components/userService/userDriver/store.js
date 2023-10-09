@@ -5,6 +5,17 @@ async function addUserDriver(userDriver){
     return newUserDriver.save();
 };
 
+async function updateUserDriver(firstName,lastName, phone, userDriverId){
+    const foundUserDriver = await Model.findOne({
+        _id: userDriverId
+    });
+    foundUserDriver.firstName = firstName;
+    foundUserDriver.lastName = lastName;
+    foundUserDriver.phone = phone;
+    const updatedUserDriver= await foundUserDriver.save();
+    return updatedUserDriver;
+};
+
 async function seeAllUsersDriver(){
     try {
         const usersDrivers = await Model.find().populate('user','email');
@@ -24,4 +35,5 @@ module.exports = {
     list: seeAllUsersDriver,
     add: addUserDriver,
     delete: deleteUserDriver,
+    update: updateUserDriver, 
 }

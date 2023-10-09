@@ -16,7 +16,7 @@ router.get("/all", function(req, res) {
       });
   });
 
-  router.get('/one/:id',  function (req, res) {
+router.get('/one/:id',  function (req, res) {
     controller
       .getOrganization(req.params.id)
       .then((organization) => {
@@ -40,7 +40,7 @@ router.get("/info", function(req, res) {
   });
 
 
-  router.post("/", function(req, res) {
+router.post("/", function(req, res) {
       controller
         .addNewOrganization(req.body.organizationName, 
            req.body.latitude,

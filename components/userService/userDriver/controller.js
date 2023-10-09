@@ -34,7 +34,7 @@ async function addNewUserDriver(user, firstName, lastName, phone){
         }
     });
 }
-function deleteUserDriver(id){
+async function deleteUserDriver(id){
     return new Promise((resolve, reject) => {
         if (!id) {
           reject("Id invalido");
@@ -51,6 +51,25 @@ function deleteUserDriver(id){
       });
 }
 
+async function updateUserInfo(userDriverId, firstName, lastName, phone){
+  return new Promise(async (resolve, reject)=> {
+    if(!userDriverId||!firstName||!lastName||!phone){
+        console.error(
+            "[messageController] Theres missing data selected"
+          );
+          return reject("The provided data was incorrect");
+    }
+    try {
+      //change add for actual function
+  const userDriverUpdated =  await store.update(userDriverId, firstName, lastName, phone);
+    console.log(userDriverUpdated);
+    resolve(userDriverUpdated);
+    } catch (error) {
+      reject(error);
+    }
+});
+}
+
 function getUserDriverList(){
   return new Promise((resolve, reject) => {
     resolve(store.list());
@@ -64,6 +83,7 @@ function getUserDriverInfo(){
 
 module.exports = {
     addNewUserDriver: addNewUserDriver,
+    updateUserDriver: updateUserInfo,
     deleteUserDriver: deleteUserDriver,
     getUserDriverList: getUserDriverList,
     getUserDriverInfo: getUserDriverInfo,

@@ -3,12 +3,13 @@ const response = require("../../../network/response");
 const router = express.Router();
 const controller = require("./controller.js");
 // bring reservations
-router.get("/", function(req, res) {
-  const filterReservations = req.query.user || null;
+router.get("/:user", function(req, res) {
+  const filterReservations = req.params.user || null;
   controller
     .getReserve(filterReservations)
     .then((reserveList) => {
       response.success(req, res, reserveList, 200);
+      
     })
     .catch((e) => {
       response.error(req, res, "Unexpected Error", 500, e);
