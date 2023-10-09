@@ -5,7 +5,7 @@ async function addUserDriver(userDriver){
     return newUserDriver.save();
 };
 
-async function updateUserDriver(firstName,lastName, phone, userDriverId){
+async function updateUserDriver(userDriverId,firstName,lastName, phone){
     const foundUserDriver = await Model.findOne({
         _id: userDriverId
     });

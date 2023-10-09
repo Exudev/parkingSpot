@@ -51,9 +51,9 @@ async function deleteUserDriver(id){
       });
 }
 
-async function updateUserInfo(userDriverId, firstName, lastName, phone){
+async function updateUserInfo(id, firstName, lastName, phone){
   return new Promise(async (resolve, reject)=> {
-    if(!userDriverId||!firstName||!lastName||!phone){
+    if(!id||!firstName||!lastName||!phone){
         console.error(
             "[messageController] Theres missing data selected"
           );
@@ -61,7 +61,7 @@ async function updateUserInfo(userDriverId, firstName, lastName, phone){
     }
     try {
       //change add for actual function
-  const userDriverUpdated =  await store.update(userDriverId, firstName, lastName, phone);
+  const userDriverUpdated =  await store.update(id, firstName, lastName, phone);
     console.log(userDriverUpdated);
     resolve(userDriverUpdated);
     } catch (error) {

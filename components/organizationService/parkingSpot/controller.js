@@ -2,6 +2,21 @@ const store = require("./store");
 
 function reserveParking(user, parking, StartTime, EndTime) {
   return new Promise((resolve, reject) => {
+    // Intenta convertir StartTime y EndTime en objetos Date
+    if (!(StartTime instanceof Date)) {
+      StartTime = new Date(StartTime);
+      if (isNaN(StartTime.getTime())) {
+        return reject("Invalid start date format");
+      }
+    }
+
+    if (!(EndTime instanceof Date)) {
+      EndTime = new Date(EndTime);
+      if (isNaN(EndTime.getTime())) {
+        return reject("Invalid end date format");
+      }
+    }
+
     if (!user || !parking || !StartTime || !EndTime) {
       console.error("[messageController] There's no user, parking, or time selected");
       return reject("The provided data was incorrect");
@@ -34,14 +49,15 @@ function reserveParking(user, parking, StartTime, EndTime) {
     const fullReserve = {
       user: user,
       parking: parking,
-      StartTime: new Date(StartTime),
-      EndTime: new Date(EndTime),
+      StartTime: StartTime,
+      EndTime: EndTime,
     };
     store.reserve(fullReserve);
     console.log(fullReserve);
     resolve(fullReserve);
   });
 }
+
 
 
 function getReservesByParkingLotDay(parkingLotId) {

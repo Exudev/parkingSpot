@@ -32,6 +32,23 @@ router.get("/", function(req, res) {
       });
   });
 
+  router.put("/:id", async function(req, res) {
+    controller
+      .updateUserDriver(req.params.id, req.body.firstName, req.body.lastName,  req.body.phone)
+      .then((addNewUser) => {
+        response.success(req, res, addNewUser, 201);
+      })
+      .catch((e) => {
+        response.error(
+          req,
+          res,
+          "Error inesperado",
+          500,
+          "Error en el controlador:" + e.message
+        );
+      });
+  });
+
   router.delete('/:id', function(req,res){
     controller.deleteUserDriver(req.params.id)
     .then (()=> {
