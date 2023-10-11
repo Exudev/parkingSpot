@@ -29,6 +29,20 @@ router.get("/parkingLot/:id", function(req, res) {
     });
 });
 
+//bring Parking reservations for the current day
+router.get("/parking/:id", function(req, res) {
+  const parkingId = req.params.id;
+  controller
+    .getReservesByParkingDay(parkingId)
+    .then((reserveList) => {
+      response.success(req, res, reserveList, 200);
+    })
+    .catch((e) => {
+      response.error(req, res, "Unexpected Error", 500, e);
+    });
+});
+
+
 router.get("/history/:user", function(req, res) {
   controller
     .getHistoryUser(req.params.user)

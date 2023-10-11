@@ -1,6 +1,7 @@
 const store = require("./store");
+const ParkingLot = require('../parkingLot/model')
 function addNewParking(parkingLot, parking, basePrice){
-    return new Promise((resolve, reject)=> {
+    return new Promise(async (resolve, reject)=> {
         if(!parkingLot||!parking||!basePrice){
             console.error(
                 "[messageController] There is missing Data"
@@ -13,21 +14,27 @@ function addNewParking(parkingLot, parking, basePrice){
             parking:  parking,
             basePrice:  basePrice,
         };
+        const parkingLotFound = await ParkingLot.findById(parkingLot);
+        await parkingLotFound.updateTotalParkingCount();
         store.add(parkingObj);
         console.log(parkingObj);
         resolve(parkingObj);
     })
 }
 function deleteParking(id){
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if (!id) {
           reject("Id invalido");
           return false;
         }
         store
-          .delete(id)
-          .then(() => {
-            resolve();
+          .delete(id)     
+          .then(async () => {
+           const  res = await getParkingbyId(id)
+           console.log(res)
+           const parkingLotFound =  ParkingLot.findById(res.parkingLot);
+           await parkingLotFound.updateTotalParkingCount();
+           resolve();
           })
           .catch((e) => {
             reject(e);
@@ -40,6 +47,12 @@ function getParking(){
     resolve(store.list());
   });
 } 
+
+function getParkingbyId(id){
+  return new Promise((resolve, reject) => {
+    resolve(store.get(id));
+  });
+}
 
 function getParkingbyParkingLot(parkingLotId){
   return new Promise((resolve, reject) => {

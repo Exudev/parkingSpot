@@ -17,6 +17,19 @@ async function getParking() {
       throw error;
     }
   }
+
+  // async function getParkingbyId(id) {
+    
+  //   try {
+  //     const objectId = new ObjectId(id)
+  //     const populated = await Model.findById(objectId).populate('parkingLot','name').exec();
+  //     return populated;
+  //   } catch (error) {
+  //       console.log(error);
+  //     throw error;
+  //   }
+  // }
+  
   
   
 async function getParkingbyParkingLot(id) {
@@ -39,6 +52,7 @@ function deleteParking(id){
 
 module.exports = {
     list: getParking,
+    //get: getParkingbyId,
     listByOrg: getParkingbyParkingLot,
     add: addParking,
     delete: deleteParking,

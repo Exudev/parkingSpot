@@ -66,6 +66,12 @@ function getReservesByParkingLotDay(parkingLotId) {
   });
 }
 
+function getReservesByParkingDay(parkingId) {
+  return new Promise((resolve, reject) => {
+    resolve(store.getReservesByParkingForDay(parkingId)); 
+  });
+}
+
 function getReserve(filterUser) {
   return new Promise((resolve, reject) => {
     resolve(store.list(filterUser));
@@ -123,4 +129,5 @@ module.exports = {
   deleteReserve,
   getLastReserve,
   getReservesByParkingLotDay,
+  getReservesByParkingDay,
 };

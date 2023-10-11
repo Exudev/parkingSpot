@@ -35,8 +35,8 @@ router.get("/", function(req, res) {
   router.put("/:id", async function(req, res) {
     controller
       .updateUserDriver(req.params.id, req.body.firstName, req.body.lastName,  req.body.phone)
-      .then((addNewUser) => {
-        response.success(req, res, addNewUser, 201);
+      .then((updatedUser) => {
+        response.success(req, res, updatedUser, 201);
       })
       .catch((e) => {
         response.error(

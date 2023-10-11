@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Parking = require('../parking/model')
 
 const mySchema = new Schema({
     organization: {type: String, require: true},
@@ -15,6 +16,11 @@ const mySchema = new Schema({
         required:true,
       },
 });
+mySchema.methods.updateTotalParkingCount = async function () {
+  const count = await Parking.countDocuments({ parkingLot: this._id });
+  this.totalParking = count;
+  await this.save();
+};
 
 const model = mongoose.model('ParkingLot', mySchema);
 module.exports = model; 

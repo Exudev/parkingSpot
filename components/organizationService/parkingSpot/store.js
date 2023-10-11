@@ -85,37 +85,80 @@ const found =  Model.aggregate([
    
        return found;
 }
+
+async function getReservesByParkingForDay(parkingId) {
+    const PI = new ObjectId(parkingId);
+    const now = new Date();
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
+  
+    const reservations = await Model.find({
+      parking: PI,
+      StartTime:{
+        $gt :startOfDay ,
+        $lt :endOfDay,
+    },
+    });
+  
+    return reservations;
+  }
      
-async function historyByUser(userId){
-   return Model.find({user: userId})
-}
+  async function historyByUser(userId) {
+    try {
+      const reservations = await Model.find({ user: new ObjectId(userId) })
+        .populate({
+          path: 'parking',
+          populate: {
+            path: 'parkingLot',
+            select: 'name _id latitude longitude', // Specify the fields you want from parkingLot
+          },
+          select: 'parking basePrice', // Specify the fields you want from parking
+        })
+        .exec();
+  
+      return reservations;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  
 
-async function parkingSpotsDailyUser(userId) {
+  async function parkingSpotsDailyUser(userId) {
     const currentDate = new Date();
-
+  
     // Set the time to the beginning of the day (midnight)
-    currentDate.setHours(0, 0, 0, 0);
-
+   const  startOfDay = currentDate.setHours(0, 0, 0, 0);
+  
     // Calculate the end of the day (just before midnight)
     const endOfDay = new Date(currentDate);
     endOfDay.setHours(23, 59, 59, 999);
-
+  
     try {
-        // Find models for the given user with startTime between the current day's start and end
-        const reservations = await Model.find({
-            user: userId,
-            StartTime: {
-                $gte: currentDate, // Greater than or equal to the current date (beginning of the day)
-                $lte: endOfDay,   // Less than or equal to the current date (end of the day)
-            },
-        }).exec();
-        return reservations;
+        const reservations = await Model.find({ user: new ObjectId(userId), StartTime:{
+            $gt :startOfDay ,
+            $lt :endOfDay,
+        }, })
+        .populate({
+          path: 'parking',
+          populate: {
+            path: 'parkingLot',
+            select: 'name _id latitude longitude', // Specify the fields you want from parkingLot
+          },
+          select: 'parking basePrice', // Specify the fields you want from parking
+        })
+        .exec();
+  
+  
+      return reservations;
     } catch (error) {
-        // Handle any errors that may occur during the database query
-        throw error;
+      // Handle any errors that may occur during the database query
+      throw error;
     }
-}
-
+  }
+  
 
 
 
@@ -130,6 +173,7 @@ function removeReservation(id){
 module.exports = {
     reserve: ReserveParkingSpot,
     reservesOfDayByParkingLot: getReservesByParkingLotForDay,
+    getReservesByParkingForDay: getReservesByParkingForDay,
     historyByUser: historyByUser,
     parkingSpotsDailyUser: parkingSpotsDailyUser,
     list: seeAllReserved,
