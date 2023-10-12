@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const mySchema = new Schema({
   user:{ type: Schema.ObjectId,
   ref: 'UserDriver', },
-  vehicle:{type: Schema.ObjectId,
-    ref: 'Vehicle',   
+  vehicle:{type: String,
+   required: true,   
   },
   parking: {type: Schema.ObjectId,
     ref: 'Parking',   
