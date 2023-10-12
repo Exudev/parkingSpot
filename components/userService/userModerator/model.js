@@ -9,6 +9,8 @@ const mySchema = new Schema({
     },  
     firstName: {type: String, require: true},
     lastName: {type: String, require: true},
+    organizationId: {type: Schema.ObjectId,
+        ref: 'Organization',   }
 
 });
 

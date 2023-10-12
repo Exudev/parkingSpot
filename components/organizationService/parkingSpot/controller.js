@@ -1,6 +1,6 @@
 const store = require("./store");
 
-function reserveParking(user, parking, StartTime, EndTime) {
+function reserveParking(user,vehicle,  parking, StartTime, EndTime) {
   return new Promise((resolve, reject) => {
     // Intenta convertir StartTime y EndTime en objetos Date
     if (!(StartTime instanceof Date)) {
@@ -17,7 +17,7 @@ function reserveParking(user, parking, StartTime, EndTime) {
       }
     }
 
-    if (!user || !parking || !StartTime || !EndTime) {
+    if (!user || !parking|| !vehicle|| !StartTime || !EndTime) {
       console.error("[messageController] There's no user, parking, or time selected");
       return reject("The provided data was incorrect");
     }
@@ -49,6 +49,7 @@ function reserveParking(user, parking, StartTime, EndTime) {
     const fullReserve = {
       user: user,
       parking: parking,
+      vehicle: vehicle,
       StartTime: StartTime,
       EndTime: EndTime,
     };
@@ -63,6 +64,12 @@ function reserveParking(user, parking, StartTime, EndTime) {
 function getReservesByParkingLotDay(parkingLotId) {
   return new Promise((resolve, reject) => {
     resolve(store.reservesOfDayByParkingLot(parkingLotId));
+  });
+}
+
+function getReservesByOrganizationDay(OrganizationId) {
+  return new Promise((resolve, reject) => {
+    resolve(store.getReservesByOrganizationForDay(OrganizationId));//actual store
   });
 }
 
@@ -130,4 +137,5 @@ module.exports = {
   getLastReserve,
   getReservesByParkingLotDay,
   getReservesByParkingDay,
+  getReservesByOrganizationDay,
 };

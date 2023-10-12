@@ -16,7 +16,7 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addNewUserModerator(req.body.user, req.body.firstName, req.body.lastName)
+      .addNewUserModerator(req.body.user, req.body.firstName, req.body.lastName,  req.body.organizationId)
       .then((addNewUser) => {
         response.success(req, res, addNewUser, 201);
       })

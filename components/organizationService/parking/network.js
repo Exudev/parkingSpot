@@ -28,7 +28,7 @@ router.get("/", function(req, res) {
 
   router.post("/", function(req, res) {
     controller
-      .addNewParking(req.body.parkingLot,req.body.parking, req.body.basePrice)
+      .addNewParking(req.body.parkingLot,req.body.parking, req.body.availability)
       .then((addNewParking) => {
         response.success(req, res, addNewParking, 201);
       })

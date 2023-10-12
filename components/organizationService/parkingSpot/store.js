@@ -86,6 +86,63 @@ const found =  Model.aggregate([
        return found;
 }
 
+async function getReservesByOrganizationForDay(organizationId) {
+  const orgId = new ObjectId(organizationId);
+  const now = new Date();
+  const startOfDay = new Date(now);
+  startOfDay.setHours(0, 0, 0, 0);
+  const endOfDay = new Date();
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const found = Model.aggregate([
+    {
+      $match: {
+        StartTime: {
+          $gt: startOfDay,
+          $lt: endOfDay,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: 'parkings', // The name of your Parking collection
+        localField: 'parking',
+        foreignField: '_id',
+        as: 'parkingInfo',
+      },
+    },
+    {
+      $unwind: "$parkingInfo",
+    },
+    {
+      $lookup: {
+        from: 'parkinglots', // The name of your ParkingLot collection
+        localField: 'parkingInfo.parkingLot',
+        foreignField: '_id',
+        as: 'parkingLotInfo',
+      },
+    },
+    {
+      $unwind: "$parkingLotInfo",
+    },
+    {
+      $match: {
+        'parkingLotInfo.organization': orgId,
+      },
+    },
+    {
+      $project: {
+        user: 1,
+        parking: 1,
+        StartTime: 1,
+        EndTime: 1,
+      },
+    },
+  ]).exec();
+
+  return found;
+}
+
 async function getReservesByParkingForDay(parkingId) {
     const PI = new ObjectId(parkingId);
     const now = new Date();
@@ -112,6 +169,10 @@ async function getReservesByParkingForDay(parkingId) {
           path: 'parking',
           populate: {
             path: 'parkingLot',
+            populate: {
+              path:'organization',
+              select: 'organizationName _id latitude longitude latitudeDelta longitudeDelta',
+            },
             select: 'name _id latitude longitude', // Specify the fields you want from parkingLot
           },
           select: 'parking basePrice', // Specify the fields you want from parking
@@ -124,8 +185,6 @@ async function getReservesByParkingForDay(parkingId) {
     }
   }
   
-  
-
   async function parkingSpotsDailyUser(userId) {
     const currentDate = new Date();
   
@@ -159,11 +218,6 @@ async function getReservesByParkingForDay(parkingId) {
     }
   }
   
-
-
-
-
-
 function removeReservation(id){
    return Model.deleteOne({
         _id: id
@@ -174,6 +228,7 @@ module.exports = {
     reserve: ReserveParkingSpot,
     reservesOfDayByParkingLot: getReservesByParkingLotForDay,
     getReservesByParkingForDay: getReservesByParkingForDay,
+    getReservesByOrganizationForDay: getReservesByOrganizationForDay,
     historyByUser: historyByUser,
     parkingSpotsDailyUser: parkingSpotsDailyUser,
     list: seeAllReserved,

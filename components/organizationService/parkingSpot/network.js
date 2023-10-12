@@ -16,6 +16,19 @@ router.get("/:user", function(req, res) {
     });
 });
 
+//bring Organization reservations for the current day
+router.get("/organization/:id", function(req, res) {
+  const organizationId = req.params.id;
+  controller
+    .getReservesByOrganizationDay(organizationId)
+    .then((reserveList) => {
+      response.success(req, res, reserveList, 200);
+    })
+    .catch((e) => {
+      response.error(req, res, "Unexpected Error", 500, e);
+    });
+});
+
 //bring Parking Lot reservations for the current day
 router.get("/parkingLot/:id", function(req, res) {
   const parkingLotId = req.params.id;
@@ -78,7 +91,7 @@ router.get("/next/:user", function(req, res) {
 //make a reservation
 router.post("/", function(req, res) {
   controller
-    .reserveParking(req.body.user, req.body.parking, req.body.StartTime, req.body.EndTime)
+    .reserveParking(req.body.user,req.body.vehicle, req.body.parking, req.body.StartTime, req.body.EndTime)
     .then((reserveParking) => {
       response.success(req, res, reserveParking, 201);
     })

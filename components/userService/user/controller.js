@@ -58,6 +58,8 @@ function addNewUser(email, password){
        
 }
 
+
+
 function activateUser(token, userId){
   return new Promise(async (resolve, reject)=> {
     if(!token){
@@ -115,7 +117,7 @@ async function forgotPassword(email ){
   return new Promise(async (resolve, reject) => {
     const secretValue = await token.createForgotPasswordToken(email);
     const newTemplate = nado(secretValue);
-    resolve(emailSender.sendEmail(email,"oh my, oh my, u forgot ur password",newTemplate));
+    emailSender.sendEmail(email,"oh my, oh my, u forgot ur password",newTemplate);
   });
 }
 

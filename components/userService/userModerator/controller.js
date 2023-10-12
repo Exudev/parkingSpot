@@ -1,8 +1,8 @@
 const store = require("./store");
 
-function addNewUserModerator(user, firstName, lastName){
+function addNewUserModerator(user, firstName, lastName, organizationId){
     return new Promise((resolve, reject)=> {
-        if(!user||!firstName||!lastName){
+        if(!user||!firstName||!lastName||!organizationId){
             console.error(
                 "[messageController] Theres missing data selected"
               );
@@ -12,6 +12,7 @@ function addNewUserModerator(user, firstName, lastName){
             user: user,
             firstName: firstName,
             lastName: lastName,
+            organizationId: organizationId,
         };
         store.add(userModerator);
         console.log(userModerator);

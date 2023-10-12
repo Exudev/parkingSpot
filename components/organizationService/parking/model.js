@@ -8,7 +8,7 @@ const mySchema = new Schema({
         ref: 'ParkingLot', 
     }, 
     parking: {type: String, require: true},
-    basePrice: {type: Number, require: true},
+    availability: {type: String, require: true},
             });
 
 const model = mongoose.model('Parking', mySchema);

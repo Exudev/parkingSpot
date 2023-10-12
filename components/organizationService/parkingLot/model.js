@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const Parking = require('../parking/model')
 
 const mySchema = new Schema({
-    organization: {type: String, require: true},
+    organization: {type: Schema.ObjectId,
+      ref: 'Organization', },
     name:  {type: String, require: true},
     totalParking:  {type: Number, require: true},
     description:  {type: String, require: true},

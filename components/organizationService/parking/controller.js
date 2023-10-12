@@ -1,8 +1,8 @@
 const store = require("./store");
 const ParkingLot = require('../parkingLot/model')
-function addNewParking(parkingLot, parking, basePrice){
+function addNewParking(parkingLot, parking, availability){
     return new Promise(async (resolve, reject)=> {
-        if(!parkingLot||!parking||!basePrice){
+        if(!parkingLot||!parking||!availability){
             console.error(
                 "[messageController] There is missing Data"
               );
@@ -12,7 +12,7 @@ function addNewParking(parkingLot, parking, basePrice){
             
             parkingLot: parkingLot,
             parking:  parking,
-            basePrice:  basePrice,
+            availability:  availability,
         };
         const parkingLotFound = await ParkingLot.findById(parkingLot);
         await parkingLotFound.updateTotalParkingCount();
