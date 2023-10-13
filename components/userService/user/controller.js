@@ -130,15 +130,13 @@ async function setNewPassword(token, email, password, confirmPassword){
     );
     return reject("The password didnt match");
   }
-
   let strongPassword = validation.validPassword(password);
         if (strongPassword === false)
             {
               console.log(warning("[messageController] Invalid password"));
               return reject("You need to provide a better password");
             }
-        
-        
+
     resolve(store.changePasswordToken(token, email, password));
   });
 }
