@@ -72,7 +72,7 @@ async function setNewPasswordWithToken(token, email, password)
   });
 
   if (!existingToken) {
-    console.error('Activation token not found.');
+    console.error('Token change Password not found.');
     return false; // Token not found, indicating failure
   }
  const currentDate = new Date();
