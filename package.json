@@ -38,7 +38,7 @@
   "scripts": {
     "start": "node app.js",
     "build": "react-scripts build",
-    "build-jarvis": "eslint components/ network/ ",
+    "build-jarvis": "eslint components/ network/ && pnpm install",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
