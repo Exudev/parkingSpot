@@ -2363,7 +2363,7 @@ packages:
       chalk: 4.1.2
       strip-ansi: 6.0.1
       supports-color: 8.1.1
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@oclif/command@1.8.15(@oclif/config@1.18.17):
@@ -2437,12 +2437,12 @@ packages:
       natural-orderby: 2.0.3
       object-treeify: 1.1.33
       password-prompt: 1.1.3
-      semver: 7.5.1
+      semver: 7.5.4
       string-width: 4.2.3
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      tslib: 2.6.0
+      tslib: 2.6.2
       widest-line: 3.1.0
       wrap-ansi: 7.0.0
     dev: false
@@ -4708,7 +4708,7 @@ packages:
       htmlparser2: 6.1.0
       parse5: 6.0.1
       parse5-htmlparser2-tree-adapter: 6.0.1
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /chokidar@3.5.3:
@@ -4855,7 +4855,7 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /cli-width@2.2.1:
