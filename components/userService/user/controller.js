@@ -115,9 +115,9 @@ function getUser(id){
 } 
 async function forgotPassword(email ){
   return new Promise(async (resolve, reject) => {
-    const secretValue = await token.createForgotPasswordToken(email);
+    const secretValue = await token.createForgotPasswordToken(email.toLowerCase());
     const newTemplate = nado(secretValue);
-    emailSender.sendEmail(email,"oh my, oh my, u forgot ur password",newTemplate);
+   resolve(emailSender.sendEmail(email,"oh my, oh my, u forgot ur password",newTemplate));
   });
 }
 
